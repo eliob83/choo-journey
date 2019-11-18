@@ -1,6 +1,6 @@
 
 import { Component, Input } from '@angular/core';
-import { StationServiceService } from '../../services/station-service.service';
+import { StationService } from '../../services/station.service';
 
 @Component({
   selector: 'app-station-list',
@@ -10,7 +10,7 @@ import { StationServiceService } from '../../services/station-service.service';
 export class StationListComponent {
   stationName: string;
 
-  constructor(private stationService: StationServiceService) { }
+  constructor(private stationService: StationService) { }
 
 
   searchStations() {

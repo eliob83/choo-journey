@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError, of } from 'rxjs';
 import { retry, map, catchError, tap } from 'rxjs/operators';
 
-import { API_TOKEN } from './token';
+import { API_TOKEN } from '../token';
 
 
 const endpoint = 'https://api.navitia.io/v1/';
@@ -19,7 +19,7 @@ const headers = {
   providedIn: 'root'
 })
 
-export class StationServiceService {
+export class StationService {
   constructor(private httpClient: HttpClient) { }
 
 
