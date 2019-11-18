@@ -7,7 +7,7 @@ import {StationListComponent} from './components/station-list/station-list.compo
 import {StationMapComponent} from './components/station-map/station-map.component';
 import {JourneyComponent} from './components/journey/journey.component';
 
-import {AlertModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import {AlertModule} from 'ngx-bootstrap';
     JourneyComponent
   ],
   imports: [
-    AlertModule.forRoot(),
+    ModalModule.forRoot(),
     BrowserModule
   ],
   providers: [],
