@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Journey} from '../classes/Journey';
+import {API_TOKEN} from '../token';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class StationServiceService {
   }
 
   searchJourney(jrny: Journey) {
-    this.rq = 'https://api.navitia.io/v1/coverage/sncf/journeys?from=' + jrny.from + '&to=' + jrny.to + '&datetime=' + jrny.dateTime + '&';
+    this.rq = 'https://' + API_TOKEN + '@api.navitia.io/v1/coverage/sncf/';
+    this.rq += '?from=' + jrny.from + '&to=' + jrny.to + '&datetime=' + jrny.dateTime + '&';
   }
 }
