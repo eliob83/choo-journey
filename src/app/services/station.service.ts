@@ -4,6 +4,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { retry, map, catchError, tap } from 'rxjs/operators';
 
 import { Station } from '../classes/Station';
+import { Journey } from '../classes/Journey';
 import { API_TOKEN } from '../token';
 
 
@@ -48,6 +49,12 @@ export class StationService {
       () => { console.log('Terminé !'); },
       (error) => { console.error('Erreur httpClient : ' + error); }
     );*/
+  }
+
+  
+  searchJourney(jrny: Journey) {
+    let rq = endpoint + 'coverage/sncf/';
+    rq += '?from=' + jrny.from + '&to=' + jrny.to + '&datetime=' + jrny.dateTime + '&';
   }
 
   getLoadedStations() {

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Journey} from '../../classes/Journey';
-import {StationServiceService} from '../../services/station-service.service';
+import {StationService} from '../../services/station.service';
 
 @Component({
   selector: 'app-journey',
@@ -8,21 +8,16 @@ import {StationServiceService} from '../../services/station-service.service';
   styleUrls: ['./journey.component.css']
 })
 export class JourneyComponent implements OnInit {
-  private Sss: StationServiceService;
+  journey: Journey = new Journey();
 
-  @Input() journey: Journey;
+  //@Output() updatedJourney = new EventEmitter<Journey>();
 
-  @Output() updatedJourney = new EventEmitter<Journey>();
-
-  constructor(stationService: StationServiceService) {
-    this.Sss = stationService;
-  }
+  constructor(private stationService: StationService) { }
 
   ngOnInit() {
   }
 
   submitJourney() {
-    this.updatedJourney.emit(this.journey);
+    console.log("ok");//this.updatedJourney.emit(this.journey);
   }
-
 }

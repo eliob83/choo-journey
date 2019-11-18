@@ -1,24 +1,30 @@
 <div class="container">
   <h2>Itinéraire</h2>
+
   <form action="#" (ngSubmit)="submitJourney()">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="from">Mise en train</label>
-          <input type="search" class="form-control basicAutoComplete" id="from" placeholder="Toulon" [(ngModel)]="journey.from">
+          <input type="search" class="form-control basicAutoComplete" id="from" name="from" placeholder="Toulon" [(ngModel)]="journey.from">
       </div>
+
       <div class="form-group col-md-6">
         <label for="to">Destination</label>
-          <input type="search" class="form-control" id="to" placeholder="Seignosse" [(ngModel)]="journey.to">
+          <input type="search" class="form-control" id="to" name="to" placeholder="Seignosse" [(ngModel)]="journey.to">
       </div>
+
       <div class="form-group">
         <label for="datetime">Date de voyage</label>
-          <input type="date" class="form-control" id="datetime" placeholder="jj/MM/yyy" [(ngModel)]="journey.dateTime">
+          <input type="date" class="form-control" id="datetime" name="datetime" placeholder="jj/MM/yyy" [(ngModel)]="journey.dateTime">
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="Sss.searchJourney(journey)">Rechercher</button>
+
+    <button type="submit" class="btn btn-primary" (click)="stationService.searchJourney(journey)">Rechercher</button>
   </form>
+
   <button type="button" class="btn btn-info" (click)="staticModal.show()">Aide</button>
 </div>
+
 <div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -26,9 +32,11 @@
       <div class="modal-header">
         <h4 class="modal-title pull-left">Chercher un trajet</h4>
       </div>
+
       <div class="modal-body text-center">
         Entrez la ville dont vous souhaitez partir, la ville d'arrivée, et votre date de départ.
       </div>
+
       <div class="modal-footer">
         <small><i>Cliquez n'importe où pour fermer</i></small>
       </div>
