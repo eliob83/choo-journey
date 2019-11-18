@@ -1,7 +1,11 @@
 !.gitignore
 
 # Ignore IDEA files
-*.idea/*
+.idea/
 
 # Ignore token file
 #
+
+*.iml
+
+
