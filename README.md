@@ -1,6 +1,20 @@
 # ChooJourney
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.17.
+It will be a one page web site, using the SNCF API (more information below).
+
+## Features
+### Dynamic map
+- Train stations location
+- Rides proposed
+
+### Search bar
+- Train stations list
+- Autocomplete
+
+### Information tab
+- Details about departures and arrivals
+- Details about the ride selected 
 
 ## Prerequisites
 
