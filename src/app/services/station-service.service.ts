@@ -18,6 +18,7 @@ const headers = {
 @Injectable({
   providedIn: 'root'
 })
+
 export class StationServiceService {
   constructor(private httpClient: HttpClient) { }
 
@@ -40,9 +41,5 @@ export class StationServiceService {
       () => { console.log('Terminé !'); },
       (error) => { console.error('Erreur httpClient : ' + error); }
     );*/
-  }
-
-  handleError(error) {
-    return throwError(error);
   }
 }

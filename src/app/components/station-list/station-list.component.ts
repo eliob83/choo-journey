@@ -1,5 +1,6 @@
+
 import { Component, Input } from '@angular/core';
-import { StationServiceService } from '../station-service.service';
+import { StationServiceService } from '../../services/station-service.service';
 
 @Component({
   selector: 'app-station-list',

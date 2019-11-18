@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Journey} from '../../classes/Journey';
 
 @Component({
   selector: 'app-journey',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./journey.component.css']
 })
 export class JourneyComponent implements OnInit {
+  journey: Journey;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
