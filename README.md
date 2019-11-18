@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Prerequisites
 
-The API token has to be given in the [YYY file](./src/app/token.ts).
+The API token has to be given in the [token.ts file](./src/app/token.ts).
 You can obtain one on the [SNCF API website](https://www.digital.sncf.com/startup/api).
 
 ## Development server
