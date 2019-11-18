@@ -7,7 +7,10 @@ import {StationListComponent} from './station-list/station-list.component';
 import {StationMapComponent} from './station-map/station-map.component';
 import {JourneyComponent} from './journey/journey.component';
 
+import {FormsModule} from '@angular/forms';
 import {AlertModule} from 'ngx-bootstrap';
+
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,9 @@ import {AlertModule} from 'ngx-bootstrap';
   ],
   imports: [
     AlertModule.forRoot(),
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
