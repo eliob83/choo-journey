@@ -18,7 +18,7 @@ export class StationMapComponent implements OnInit {
       attribution: 'Frugal Map'
     }).addTo(myfrugalmap);
 
-    var trainIcon = L.icon({
+    const trainIcon = L.icon({
       iconUrl: 'train.png',
       shadowUrl: 'train-shadow.png',
       iconSize:     [38, 95], // size of the icon
