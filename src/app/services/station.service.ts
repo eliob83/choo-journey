@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError, of } from 'rxjs';
 import { retry, map, catchError, tap } from 'rxjs/operators';
 
+import { Station } from '../classes/Station';
 import { API_TOKEN } from '../token';
 
 
@@ -23,7 +24,9 @@ export class StationService {
   constructor(private httpClient: HttpClient) { }
 
 
-  private stations = [];
+  private stations = [
+    new Station(null)
+  ];
 
 
   loadStationsLike(stationName: string) {
@@ -31,15 +34,23 @@ export class StationService {
 
     this.httpClient.get(endpoint + 'coverage/sncf/places?q=' + stationName + '&count=100&type%5B%5D=stop_area', headers)
     .subscribe((data: {}) => {
-      if ((places = data['places']).length > 0) {
+      this.stations = [];
+
+      if ((places = data[`places`]).length > 0) {
         places.forEach(element => {
-          console.log(element);
+          this.stations.push(new Station(element));
         });
+
+        console.log(this.stations);
       }
     });
     /*.subscribe(
       () => { console.log('Terminé !'); },
       (error) => { console.error('Erreur httpClient : ' + error); }
     );*/
+  }
+
+  getLoadedStations() {
+    return this.stations;
   }
 }
