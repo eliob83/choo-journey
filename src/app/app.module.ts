@@ -8,6 +8,7 @@ import {StationMapComponent} from './components/station-map/station-map.componen
 import {JourneyComponent} from './components/journey/journey.component';
 
 import {ModalModule} from 'ngx-bootstrap';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {ModalModule} from 'ngx-bootstrap';
   ],
   imports: [
     ModalModule.forRoot(),
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
