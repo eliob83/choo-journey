@@ -18,6 +18,8 @@ It will be a one page web site, using the SNCF API (more information below).
 
 ## Prerequisites
 
+Leaflet required : npm --save install leaflet @types/leaflet
+Bootstrap required : 
 The API token has to be given in the [token.ts file](./src/app/token.ts).
 You can obtain one on the [SNCF API website](https://www.digital.sncf.com/startup/api).
 
