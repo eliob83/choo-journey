@@ -10,6 +10,8 @@ import {JourneyComponent} from './components/journey/journey.component';
 import {ModalModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import {FormsModule} from '@angular/forms';
   imports: [
     ModalModule.forRoot(),
     BrowserModule,
+    HttpClientModule,
     FormsModule
   ],
   providers: [],

@@ -1,3 +1,15 @@
 <h1>Liste des stations</h1>
 
-<app-station></app-station>
+<form (ngSubmit)="searchStations()">
+    <label for="stationName">
+        Nom de la station : 
+    </label>
+    <input id="stationName" [(ngModel)]="stationName" name="stationName" placeholder="Marseille" />
+
+    <br />
+    <button type="submit">Rechercher</button>
+</form>
+
+<div *ngFor="let station of stationService.getLoadedStations()">
+    <app-station [station]="station"></app-station>
+</div>
