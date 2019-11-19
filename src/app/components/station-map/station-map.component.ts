@@ -12,10 +12,8 @@ import { StationType } from 'src/app/classes/Station';
 export class StationMapComponent implements OnInit {
   markers: Array<any> = [];
   icons: Icon[][] = [[ ], [ ], [ ]];
-  bus: Array<Icon> = [];
 
-  constructor(private stationsService: StationService) {
-  }
+  constructor(private stationsService: StationService) { }
 
   ngOnInit() {
     // Déclaration de la carte avec les coordonnées du centre et le niveau de zoom.
@@ -24,12 +22,6 @@ export class StationMapComponent implements OnInit {
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: 'myMap'
     }).addTo(myMap);
-
-    const interro = L.icon({
-      iconUrl: '../assets/img/interrogation.png',
-      iconSize: [50, 50],
-      iconAnchor: [47, 47]
-    });
 
     this.icons[0][0] = L.icon({
       iconUrl: '../assets/img/interrogation.png', iconSize: [50, 50], iconAnchor: [47, 47]
@@ -43,11 +35,6 @@ export class StationMapComponent implements OnInit {
       }
     }
 
-    for (let i = 0; i < 9; i++) {
-      this.bus[i] = L.icon({
-        iconUrl: '../assets/img/bus' + i + '.png', iconSize: [50, 50], iconAnchor: [47, 47]
-      });
-    }
     // When stations are searched
     this.stationsService.stationsSubjects.subscribe((data) => {
       this.markers.forEach(marker => {
