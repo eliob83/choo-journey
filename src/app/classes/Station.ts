@@ -10,6 +10,8 @@ export class Station {
     lat: string;
     lon: string;
 
+    city: string;
+    zipCode: string;
 
     type: StationType;
 
@@ -23,6 +25,9 @@ export class Station {
 
         this.id = args[`id`];
         this.name = args[`name`];
+
+        this.city = args[`stop_area`][`administrative_regions`][0][`name`];
+        this.zipCode = args[`stop_area`][`administrative_regions`][0][`zip_code`];
 
         this.lat = args[`stop_area`][`coord`][`lat`];
         this.lon = args[`stop_area`][`coord`][`lon`];
