@@ -7,10 +7,11 @@ import {StationListComponent} from './components/station-list/station-list.compo
 import {StationMapComponent} from './components/station-map/station-map.component';
 import {JourneyComponent} from './components/journey/journey.component';
 
-import {ModalModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -21,10 +22,10 @@ import {HttpClientModule} from '@angular/common/http';
     JourneyComponent
   ],
   imports: [
-    ModalModule.forRoot(),
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
