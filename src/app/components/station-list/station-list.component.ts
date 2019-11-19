@@ -1,6 +1,8 @@
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { StationService } from '../../services/station.service';
+import { EventEmitter } from 'events';
+import { Station } from '../../classes/Station';
 
 @Component({
   selector: 'app-station-list',
@@ -9,12 +11,13 @@ import { StationService } from '../../services/station.service';
 })
 export class StationListComponent {
   stationName: string;
+  notSearched = true;
 
   constructor(private stationService: StationService) { }
 
 
   searchStations() {
-    console.log('Nom : ' + this.stationName);
-    this.stationService.loadStationsLike(this.stationName);
+    this.notSearched = false;
+    this.stationService.searchStation(this.stationName);
   }
 }
