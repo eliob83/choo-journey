@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import {StationService} from '../../services/station.service';
 import {DivIcon, Icon, IconOptions} from 'leaflet';
+import { StationType } from 'src/app/classes/Station';
 
 @Component({
   selector: 'app-station-map',
@@ -10,7 +11,7 @@ import {DivIcon, Icon, IconOptions} from 'leaflet';
 })
 export class StationMapComponent implements OnInit {
   markers: Array<any> = [];
-  icons: Array<Icon> = [];
+  icons: Icon[][] = [[ ], [ ], [ ]];
   bus: Array<Icon> = [];
 
   constructor(private stationsService: StationService) {
@@ -29,10 +30,17 @@ export class StationMapComponent implements OnInit {
       iconSize: [50, 50],
       iconAnchor: [47, 47]
     });
-    for (let i = 0; i < 9; i++) {
-      this.icons[i] = L.icon({
-        iconUrl: '../assets/img/train' + i + '.png', iconSize: [50, 50], iconAnchor: [47, 47]
-      });
+
+    this.icons[0][0] = L.icon({
+      iconUrl: '../assets/img/interrogation.png', iconSize: [50, 50], iconAnchor: [47, 47]
+    });
+    for (let t = StationType.TRAIN_STATION; t <= StationType.BUS_STATION; t++) {
+      for (let i = 0; i < 9; i++) {
+        this.icons[t][i] = L.icon({
+          iconUrl: '../assets/img/' + (t === StationType.TRAIN_STATION ? 'train' : 'bus') + i + '.png',
+          iconSize: [50, 50], iconAnchor: [47, 47]
+        });
+      }
     }
 
     for (let i = 0; i < 9; i++) {
@@ -48,10 +56,16 @@ export class StationMapComponent implements OnInit {
       this.markers.splice(0, this.markers.length);
 
       data.forEach(station => {
-        this.markers.push(L.marker([+station.lat, +station.lon], {icon: this.bus[Math.floor(Math.random() * 8)]}).bindPopup(station.label).addTo(myMap)
-          .on('click', e => {
-            this.stationsService.mapSubjects.next(station);
-          }));
+        this.markers.push(
+          L.marker(
+              [+station.lat, +station.lon],
+              {icon: this.icons[station.type][Math.floor(Math.random() * this.icons[station.type].length)]})
+            .bindPopup(station.label).addTo(myMap)
+            .on('click', e => {
+              this.stationsService.mapSubjects.next(station);
+            }
+          )
+        );
       });
     });
 
