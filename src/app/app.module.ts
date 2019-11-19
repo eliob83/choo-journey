@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
@@ -11,8 +12,9 @@ import {FormsModule} from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
 
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {TypeaheadModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     FontAwesomeModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,6 @@
+import {Component} from '@angular/core';
+import {StationService} from '../../services/station.service';
+import {Station} from '../../classes/Station';
 
 import { Component, Input, Output } from '@angular/core';
 import { StationService } from '../../services/station.service';
@@ -32,7 +35,7 @@ export class StationListComponent {
 
   searchStations() {
     this.notSearched = false;
-    this.stationService.searchStation(this.stationName);
+    this.stationService.searchStation(this.stationName, 20);
   }
 
   openStation(station: Station) {

@@ -1,21 +1,23 @@
 <div class="container">
   <h2>Itinéraire</h2>
 
-  <form action="#" (ngSubmit)="submitJourney()">
+  <form autocomplete="off" action="#" (ngSubmit)="submitJourney()">
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 autocomplete">
         <label for="from">Mise en train</label>
-          <input type="search" class="form-control basicAutoComplete" id="from" name="from" placeholder="Toulon" [(ngModel)]="journey.from">
+        <input type="search" class="form-control basicAutoComplete" id="from" name="from" placeholder="Toulon"
+               [(ngModel)]="journey.from">
       </div>
 
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 autocomplete">
         <label for="to">Destination</label>
-          <input type="search" class="form-control" id="to" name="to" placeholder="Seignosse" [(ngModel)]="journey.to">
+        <input type="search" class="form-control" id="to" name="to" placeholder="Seignosse" [(ngModel)]="journey.to">
       </div>
 
       <div class="form-group">
         <label for="datetime">Date de voyage</label>
-          <input type="date" class="form-control" id="datetime" name="datetime" placeholder="jj/MM/yyy" [(ngModel)]="journey.dateTime">
+        <input type="date" class="form-control" id="datetime" name="datetime" placeholder="jj/MM/yyy"
+               [(ngModel)]="journey.dateTime">
       </div>
     </div>
 
