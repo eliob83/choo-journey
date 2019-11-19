@@ -24,9 +24,16 @@ export class StationMapComponent implements OnInit {
       iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
     });
 
-    this.stationsService.getLoadedStations().forEach(station => {
-      L.marker([+station.lat, +station.lon], {icon: myIcon}).addTo(myMap);
+    /*this.stationsService.getLoadedStations().forEach(station => {
+      L.marker([100, 12], {icon: myIcon}).addTo(myMap);
       console.log(station.lat, station.lon, station.name);
+    });*/
+
+    this.stationsService.mapSubjects.subscribe((station) => {
+      if (station === null) {return;
+      }
+      console.log(station);
+      L.marker([+station.lat, +station.lon], {icon: myIcon}).bindPopup(station.label).addTo(myMap);
     });
 
   }

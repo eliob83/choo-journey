@@ -6,6 +6,7 @@ enum StationType {
 export class Station {
     id: string;
     name: string;
+    label: string;
 
     lat: string;
     lon: string;
@@ -25,6 +26,7 @@ export class Station {
 
         this.id = args[`id`];
         this.name = args[`name`];
+        this.label = args[`label`];
 
         this.city = args[`stop_area`][`administrative_regions`][0][`name`];
         this.zipCode = args[`stop_area`][`administrative_regions`][0][`zip_code`];

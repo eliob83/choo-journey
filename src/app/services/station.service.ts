@@ -26,7 +26,7 @@ export class StationService {
 
   private stations: Array<Station> = [ ];
 
-  private mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
+  public mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
 
 
   loadStationsLike(stationName: string): Observable<any> {
