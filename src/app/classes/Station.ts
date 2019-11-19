@@ -9,8 +9,8 @@ export class Station {
     name: string;
     label: string;
 
-    lat: string;
-    lon: string;
+    lat: number;
+    lon: number;
 
     city: string;
     zipCode: string;
@@ -30,12 +30,13 @@ export class Station {
         this.city = this.setParamFromArray(args, [`stop_area`, `administrative_regions`, 0, `name`]);
         this.zipCode = this.setParamFromArray(args, [`stop_area`, `administrative_regions`, 0, `zip_code`]);
 
-        this.lat = args[`stop_area`][`coord`][`lat`];
-        this.lon = args[`stop_area`][`coord`][`lon`];
+        this.lat = +args[`stop_area`][`coord`][`lat`];
+        this.lon = +args[`stop_area`][`coord`][`lon`];
 
         this.setTypeFromCode(args[`stop_area`][`codes`][0].value);
     }
 
+    // Browse each args given and test them one after the other to access wanted value
     setParamFromArray(arr: Array<any>, args: Array<any>): string {
         let cur = arr;
 
@@ -50,6 +51,7 @@ export class Station {
         return cur.toString();
     }
 
+    // Set Station type depending on stop_area code
     setTypeFromCode(code: string) {
         switch (code.slice(-2)) {
             case 'BV':
