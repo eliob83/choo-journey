@@ -24,13 +24,13 @@ export class StationMapComponent implements OnInit {
     }).addTo(myMap);
 
     this.icons[0][0] = L.icon({
-      iconUrl: '../assets/img/interrogation.png', iconSize: [50, 50], iconAnchor: [47, 47]
+      iconUrl: '../assets/img/interrogation.png', iconSize: [50, 50], iconAnchor: [25, 25]
     });
     for (let t = StationType.TRAIN_STATION; t <= StationType.BUS_STATION; t++) {
       for (let i = 0; i < 9; i++) {
         this.icons[t][i] = L.icon({
           iconUrl: '../assets/img/' + (t === StationType.TRAIN_STATION ? 'train' : 'bus') + i + '.png',
-          iconSize: [50, 50], iconAnchor: [47, 47]
+          iconSize: [50, 50], iconAnchor: [25, 25]
         });
       }
     }
@@ -43,23 +43,27 @@ export class StationMapComponent implements OnInit {
       this.markers.splice(0, this.markers.length);
 
       data.forEach(station => {
-        this.markers.push(
-          L.marker(
-              [+station.lat, +station.lon],
-              {icon: this.icons[station.type][Math.floor(Math.random() * this.icons[station.type].length)]})
-            .bindPopup(station.label).addTo(myMap)
-            .on('click', e => {
-              this.stationsService.mapSubjects.next(station);
-            }
-          )
-        );
+        if (+station.lat !== 0 || +station.lon !== 0) {
+          this.markers.push(
+            L.marker(
+                [+station.lat, +station.lon],
+                {icon: this.icons[station.type][Math.floor(Math.random() * this.icons[station.type].length)]})
+              .bindPopup(station.label).addTo(myMap)
+              .on('click', e => {
+                this.stationsService.mapSubjects.next(station);
+              }
+            )
+          );
+        }
       });
     });
 
     // When a station is focused in the list
     this.stationsService.mapSubjects.subscribe((station) => {
       if (station !== null && station.lon !== undefined && station.lat !== undefined) {
-        myMap.flyTo([+station.lat, +station.lon], 16);
+        if (+station.lat !== 0 && +station.lon !== 0) {
+          myMap.flyTo([+station.lat, +station.lon], 16);
+        }
       }
     });
   }
