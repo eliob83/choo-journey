@@ -1,36 +1,34 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
-import { retry, map, catchError, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 import {Station} from '../classes/Station';
-import {Journey} from '../classes/Journey';
 import {API_TOKEN} from '../token';
-
-
-const endpoint = 'https://api.navitia.io/v1/';
-const headers = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/x-www-form-urlencoded',
-    Authorization: API_TOKEN
-  })
-};
-
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class StationService {
-  constructor(private httpClient: HttpClient) { }
 
-  //private stations: Array<Station> = [ ];
-  public stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([ ]);
+  protected readonly endpoint = 'https://api.navitia.io/v1/';
+  protected readonly headers = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: API_TOKEN
+    })
+  };
+
+  // private stations: Array<Station> = [];
+  public stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]);
   public mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
 
+  constructor(private httpClient: HttpClient) {
+  }
 
-  loadStationsLike(stationName: string): Observable<any> {
-    return this.httpClient.get(endpoint + 'coverage/sncf/places?q=' + stationName + '&count=100&type%5B%5D=stop_area', headers);
+  loadStationsLike(stationName: string, nb: number): Observable<any> {
+    const url = this.endpoint + 'coverage/sncf/places?q=' + stationName + '&count=' + nb + '&type%5B%5D=stop_area';
+    return this.httpClient.get(url, this.headers);
     /*.subscribe(
       () => { console.log('Terminé !'); },
       (error) => { console.error('Erreur httpClient : ' + error); }
@@ -38,10 +36,10 @@ export class StationService {
   }
 
 
-  searchStation(stationName: string) {
+  searchStation(stationName: string, nb: number) {
     const stations = [];
 
-    this.loadStationsLike(stationName).subscribe((data: {}) => {
+    this.loadStationsLike(stationName, nb).subscribe((data: {}) => {
       if (data[`places`] !== undefined && data[`places`].length) {
         data[`places`].forEach(element => {
           stations.push(new Station(element));
@@ -51,18 +49,6 @@ export class StationService {
       }
     });
   }
-
-  autocompletionStation(nameLike: string) {
-    // this.loadStationsLike(nameLike).subscribe()
-  }
-
-
-  searchJourney(jrny: Journey) {
-    console.log(jrny);
-    // let rq = endpoint + 'coverage/sncf/';
-    // rq += '?from=' + jrny.from + '&to=' + jrny.to + '&datetime=' + jrny.dateTime + '&';
-  }
-
 
   seeEvent(station: Station) {
     this.mapSubjects.next(station);

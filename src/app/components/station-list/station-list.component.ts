@@ -1,10 +1,8 @@
+import {Component} from '@angular/core';
+import {StationService} from '../../services/station.service';
+import {Station} from '../../classes/Station';
 
-import { Component, Input, Output } from '@angular/core';
-import { StationService } from '../../services/station.service';
-import { EventEmitter } from 'events';
-import { Station } from '../../classes/Station';
-
-import { faTrain } from '@fortawesome/free-solid-svg-icons';
+import {faTrain} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-station-list',
@@ -28,6 +26,6 @@ export class StationListComponent {
 
   searchStations() {
     this.notSearched = false;
-    this.stationService.searchStation(this.stationName);
+    this.stationService.searchStation(this.stationName, 20);
   }
 }
