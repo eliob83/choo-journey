@@ -1,6 +1,7 @@
-enum StationType {
+export enum StationType {
     UNDEFINED,
-    TRAIN_STATION
+    TRAIN_STATION,
+    BUS_STATION
 }
 
 export class Station {
@@ -41,6 +42,10 @@ export class Station {
         switch (code.slice(-2)) {
             case 'BV':
                 this.type = StationType.TRAIN_STATION;
+                break;
+
+            case 'HR':
+                this.type = StationType.BUS_STATION;
                 break;
 
             default:
