@@ -24,9 +24,9 @@ const headers = {
 export class StationService {
   constructor(private httpClient: HttpClient) { }
 
-  private stations: Array<Station> = [ ];
-
-  private mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
+  //private stations: Array<Station> = [ ];
+  public stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([ ]);
+  public mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
 
 
   loadStationsLike(stationName: string): Observable<any> {
@@ -39,23 +39,21 @@ export class StationService {
 
 
   searchStation(stationName: string) {
-    let places: Array<any> = [];
-    this.stations = [];
+    const stations = [];
 
     this.loadStationsLike(stationName).subscribe((data: {}) => {
-      if ((places = data[`places`]).length > 0) {
-        places.forEach(element => {
-          this.stations.push(new Station(element));
-          console.log(element);
+      if (data[`places`] !== undefined && data[`places`].length) {
+        data[`places`].forEach(element => {
+          stations.push(new Station(element));
         });
 
-        console.log(this.stations); // DEBUG
+        this.stationsSubjects.next(stations);
       }
     });
   }
 
   autocompletionStation(nameLike: string) {
-    //this.loadStationsLike(nameLike).subscribe()
+    // this.loadStationsLike(nameLike).subscribe()
   }
 
 
@@ -63,20 +61,6 @@ export class StationService {
     console.log(jrny);
     // let rq = endpoint + 'coverage/sncf/';
     // rq += '?from=' + jrny.from + '&to=' + jrny.to + '&datetime=' + jrny.dateTime + '&';
-  }
-
-  getLoadedStations() {
-    return this.stations;
-  }
-
-  getLoadedStationFromId(stationId: string) {
-    this.stations.forEach(element => {
-      if (element.id === stationId) {
-        return element;
-      }
-    });
-
-    return null;
   }
 
 

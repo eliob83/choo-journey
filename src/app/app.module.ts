@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TypeaheadModule} from 'ngx-bootstrap';
 
 @NgModule({
@@ -28,6 +29,7 @@ import {TypeaheadModule} from 'ngx-bootstrap';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    FontAwesomeModule,
     ModalModule.forRoot(),
     TypeaheadModule.forRoot()
   ],

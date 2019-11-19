@@ -19,6 +19,7 @@ It will be a one page web site, using the SNCF API (more information below).
 ## Prerequisites
 
 Leaflet required : npm --save install leaflet @types/leaflet
+Font-awesome npm install @fortwaesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/angular-fontawesome@0.5.0
 Bootstrap required : npm install jquery ngx-bootstrap bootstrap --save
 The API token has to be given in the [token.ts file](./src/app/token.ts).
 You can obtain one on the [SNCF API website](https://www.digital.sncf.com/startup/api).

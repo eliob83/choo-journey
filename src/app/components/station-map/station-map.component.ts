@@ -8,6 +8,7 @@ import { StationService} from '../../services/station.service';
   styleUrls: ['./station-map.component.css']
 })
 export class StationMapComponent implements OnInit {
+  markers: Array<any> = [];
 
   constructor(private stationsService: StationService) {
   }
@@ -24,10 +25,26 @@ export class StationMapComponent implements OnInit {
       iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
     });
 
-    this.stationsService.getLoadedStations().forEach(station => {
-      L.marker([+station.lat, +station.lon], {icon: myIcon}).addTo(myMap);
-      console.log(station.lat, station.lon, station.name);
+    // When stations are searched
+    this.stationsService.stationsSubjects.subscribe((data) => {
+      this.markers.forEach(marker => {
+        myMap.removeLayer(marker);
+      });
+      this.markers.splice(0, this.markers.length);
+
+      data.forEach(station => {
+        this.markers.push(L.marker([+station.lat, +station.lon], {icon: myIcon}).bindPopup(station.label).addTo(myMap)
+          .on('click', e => {
+            this.stationsService.mapSubjects.next(station);
+        }));
+      });
     });
 
+    // When a station is focused in the list
+    this.stationsService.mapSubjects.subscribe((station) => {
+      if (station !== null && station.lon !== undefined && station.lat !== undefined) {
+        myMap.flyTo([+station.lat, +station.lon], 16);
+      }
+    });
   }
 }
