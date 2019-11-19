@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { Station } from '../../classes/Station';
+import { StationService } from 'src/app/services/station.service';
 
 @Component({
   selector: 'app-station',
@@ -9,6 +10,13 @@ import { Station } from '../../classes/Station';
 export class StationComponent {
   @Input() station: Station;
 
+  constructor(private stationService: StationService) { }
 
-  constructor() { }
+  seeOnMap() {
+    this.stationService.seeEvent(this.station);
+  }
+
+  startJourney() {
+    this.stationService.startEvent(this.station);
+  }
 }
