@@ -18,10 +18,8 @@ export class Station {
     type: StationType;
 
 
-
     constructor(args: Array<any>) {
         if (args === null) {
-            this.name = 'lol';
             return;
         }
 
@@ -29,13 +27,27 @@ export class Station {
         this.name = args[`name`];
         this.label = args[`stop_area`][`name`];
 
-        this.city = args[`stop_area`][`administrative_regions`][0][`name`];
-        this.zipCode = args[`stop_area`][`administrative_regions`][0][`zip_code`];
+        this.city = this.setParamFromArray(args, [`stop_area`, `administrative_regions`, 0, `name`]);
+        this.zipCode = this.setParamFromArray(args, [`stop_area`, `administrative_regions`, 0, `zip_code`]);
 
         this.lat = args[`stop_area`][`coord`][`lat`];
         this.lon = args[`stop_area`][`coord`][`lon`];
 
         this.setTypeFromCode(args[`stop_area`][`codes`][0].value);
+    }
+
+    setParamFromArray(arr: Array<any>, args: Array<any>): string {
+        let cur = arr;
+
+        for (const element of args) {
+            cur = cur[element];
+
+            if (cur === undefined) {
+                return undefined;
+            }
+        }
+
+        return cur.toString();
     }
 
     setTypeFromCode(code: string) {
