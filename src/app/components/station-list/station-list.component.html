@@ -29,25 +29,8 @@
     </ng-template>
 
     <ng-template #gotStation>
-        <div class="card" *ngFor="let station of stations; let i = index" [attr.data-index]="i">
-            <div class="card-header" [id]="'heading' + i">
-                <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
-                        {{ station.name }}
-                        <fa-icon [icon]="faTrain"></fa-icon>
-                    </button>
-
-                    <span class="badge badge-primary badge-pill">
-                        
-                    </span>
-                </h2>
-            </div>
-
-            <div [id]="'collapse' + i" class="collapse" [attr.aria-labelledby]="'heading' + i" data-parent="#accordionExample">
-                <div class="card-body">
-                    <app-station [station]="station"></app-station>
-                </div>
-            </div>
-        </div>
+        <span *ngFor="let station of stations; let i = index">
+            <app-station (openEvent)="openStation($event)" [station]="station" [index]="i" [selected]="station==selectedStation"></app-station>
+        </span>
     </ng-template>
 </div>

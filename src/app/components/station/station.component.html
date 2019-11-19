@@ -1,8 +1,30 @@
-Station : {{ station.name }} ({{ station.id }})<br />
-{{ station.city }} - {{ station.zipCode }}
+<div class="card" [attr.data-index]="index">
+    <div class="card-header" [class.list-group-item-primary]="selected" [id]="'heading' + index">
+        <h2 class="mb-0">
+            <button (click)="openStation()" class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + index" aria-expanded="false" [attr.aria-controls]="'collapse' + index">
+                {{ station.name }}
+                <fa-icon [icon]="faTrain"></fa-icon>
+            </button>
 
-<br />
-<div class="mt-3" role="group" aria-label="Station actions">
-    <button (click)="seeOnMap()" type="button" class="btn btn-secondary mr-2">Voir sur la carte</button>
-    <button (click)="startJourney()" type="button" class="btn btn-info">Commencer un trajet</button>
+            <ng-container [ngSwitch]="station.type">
+                <ng-container *ngSwitchCase="StationType.TRAIN_STATION" ><fa-icon [icon]="faTrain"></fa-icon></ng-container>
+                <ng-container *ngSwitchCase="StationType.BUS_STATION" ><fa-icon [icon]="faBus"></fa-icon></ng-container>
+                
+                <ng-container *ngSwitchDefault><fa-icon [icon]="faQuestion"></fa-icon></ng-container>
+            </ng-container>
+        </h2>
+    </div>
+
+    <div [id]="'collapse' + index" class="collapse" [attr.aria-labelledby]="'heading' + index" data-parent="#accordionExample">
+        <div class="card-body">
+            Station : {{ station.name }} ({{ station.id }})<br />
+            {{ station.city }} - {{ station.zipCode }}
+            
+            <br />
+            <div class="mt-3" role="group" aria-label="Station actions">
+                <button (click)="seeOnMap()" type="button" class="btn btn-secondary mr-2">Voir sur la carte</button>
+                <button (click)="startJourney()" type="button" class="btn btn-info">Commencer un trajet</button>
+            </div>
+        </div>
+    </div>
 </div>
