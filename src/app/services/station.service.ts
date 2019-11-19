@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import {Station} from '../classes/Station';
-import {API_TOKEN} from '../token';
+import { Station } from '../classes/Station';
+
+import { API_TOKEN } from '../token';
+
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class StationService {
-
   protected readonly endpoint = 'https://api.navitia.io/v1/';
   protected readonly headers = {
     headers: new HttpHeaders({
@@ -19,23 +19,29 @@ export class StationService {
     })
   };
 
-  // private stations: Array<Station> = [];
-  public stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]);
-  public mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
+  // List update observable
+  stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]);
+  // Map update observable
+  mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
 
-  constructor(private httpClient: HttpClient) {
+
+  constructor(private httpClient: HttpClient) { }
+
+  // API call function
+  apiCall(url: string): Observable<any> {
+    return this.httpClient.get(url, this.headers);
   }
 
-  loadStationsLike(stationName: string, nb: number): Observable<any> {
-    const url = this.endpoint + 'coverage/sncf/places?q=' + stationName + '&count=' + nb + '&type%5B%5D=stop_area';
-    return this.httpClient.get(url, this.headers);
+  // API search like stationName
+  loadStationsLike(stationName: string, count: number): Observable<any> {
+    return this.apiCall(this.endpoint + 'coverage/sncf/places?q=' + stationName + '&count=' + count + '&type%5B%5D=stop_area');
     /*.subscribe(
       () => { console.log('Terminé !'); },
       (error) => { console.error('Erreur httpClient : ' + error); }
     );*/
   }
 
-
+  // Stations list search
   searchStation(stationName: string, nb: number) {
     const stations = [];
 
@@ -45,16 +51,9 @@ export class StationService {
           stations.push(new Station(element));
         });
 
+        // Push stations list in observable
         this.stationsSubjects.next(stations);
       }
     });
-  }
-
-  seeEvent(station: Station) {
-    this.mapSubjects.next(station);
-  }
-
-  startEvent(station: Station) {
-
   }
 }

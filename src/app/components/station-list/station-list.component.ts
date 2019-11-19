@@ -1,7 +1,8 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { StationService } from '../../services/station.service';
-import { EventEmitter } from 'events';
-import { Station, StationType } from '../../classes/Station';
+
+import { Station } from '../../classes/Station';
 
 
 @Component({
@@ -10,30 +11,35 @@ import { Station, StationType } from '../../classes/Station';
   styleUrls: ['./station-list.component.css']
 })
 export class StationListComponent {
-
+  // List items
   stations: Array<Station> = [ ];
   selectedStation: Station = null;
 
+  // Search items
   stationName: string;
   notSearched = true;
 
+
   constructor(private stationService: StationService) {
+    // List update observable
     stationService.stationsSubjects.subscribe((data) => {
       this.stations = data;
       this.selectedStation = null;
     });
 
+    // Map update observable
     stationService.mapSubjects.subscribe(data => {
       this.selectedStation = data;
     });
   }
 
-
+  // Search stationName thanks to API
   searchStations() {
     this.notSearched = false;
     this.stationService.searchStation(this.stationName, 20);
   }
 
+  // Set station as selected
   openStation(station: Station) {
     this.selectedStation = station;
   }
