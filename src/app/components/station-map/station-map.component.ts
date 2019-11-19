@@ -29,12 +29,22 @@ export class StationMapComponent implements OnInit {
       console.log(station.lat, station.lon, station.name);
     });*/
 
-    this.stationsService.mapSubjects.subscribe((station) => {
-      if (station === null) {return;
-      }
-      console.log(station);
-      L.marker([+station.lat, +station.lon], {icon: myIcon}).bindPopup(station.label).addTo(myMap);
+
+    // When stations are searched
+    this.stationsService.stationsSubjects.subscribe((data) => {
+      // CLEAR MARKERS
+      data.forEach(station => {
+        L.marker([+station.lat, +station.lon], {icon: myIcon}).bindPopup(station.label).addTo(myMap);
+      });
     });
 
+    // When a station is focused in the list
+    this.stationsService.mapSubjects.subscribe((station) => {
+      if (station !== null && station.lon !== undefined && station.lat !== undefined) {
+        return;
+      }
+
+      // CENTER ON STATION
+    });
   }
 }

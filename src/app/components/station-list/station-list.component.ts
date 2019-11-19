@@ -10,10 +10,16 @@ import { Station } from '../../classes/Station';
   styleUrls: ['./station-list.component.css']
 })
 export class StationListComponent {
+  stations: Array<Station> = [ ];
+
   stationName: string;
   notSearched = true;
 
-  constructor(private stationService: StationService) { }
+  constructor(private stationService: StationService) {
+    stationService.stationsSubjects.subscribe((data) => {
+      this.stations = data;
+    });
+  }
 
 
   searchStations() {
