@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
-import { StationService} from '../../services/station.service';
+import {StationService} from '../../services/station.service';
+import {DivIcon, Icon, IconOptions} from 'leaflet';
 
 @Component({
   selector: 'app-station-map',
@@ -9,6 +10,8 @@ import { StationService} from '../../services/station.service';
 })
 export class StationMapComponent implements OnInit {
   markers: Array<any> = [];
+  icons: Array<Icon> = [];
+  bus: Array<Icon> = [];
 
   constructor(private stationsService: StationService) {
   }
@@ -21,10 +24,22 @@ export class StationMapComponent implements OnInit {
       attribution: 'myMap'
     }).addTo(myMap);
 
-    const myIcon = L.icon({
-      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
+    const interro = L.icon({
+      iconUrl: '../assets/img/interrogation.png',
+      iconSize: [50, 50],
+      iconAnchor: [47, 47]
     });
+    for (let i = 0; i < 9; i++) {
+      this.icons[i] = L.icon({
+        iconUrl: '../assets/img/train' + i + '.png', iconSize: [50, 50], iconAnchor: [47, 47]
+      });
+    }
 
+    for (let i = 0; i < 9; i++) {
+      this.bus[i] = L.icon({
+        iconUrl: '../assets/img/bus' + i + '.png', iconSize: [50, 50], iconAnchor: [47, 47]
+      });
+    }
     // When stations are searched
     this.stationsService.stationsSubjects.subscribe((data) => {
       this.markers.forEach(marker => {
@@ -33,10 +48,10 @@ export class StationMapComponent implements OnInit {
       this.markers.splice(0, this.markers.length);
 
       data.forEach(station => {
-        this.markers.push(L.marker([+station.lat, +station.lon], {icon: myIcon}).bindPopup(station.label).addTo(myMap)
+        this.markers.push(L.marker([+station.lat, +station.lon], {icon: this.bus[Math.floor(Math.random() * 8)]}).bindPopup(station.label).addTo(myMap)
           .on('click', e => {
             this.stationsService.mapSubjects.next(station);
-        }));
+          }));
       });
     });
 
