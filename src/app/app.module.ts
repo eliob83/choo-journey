@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    FontAwesomeModule,
     ModalModule.forRoot()
   ],
   providers: [],
