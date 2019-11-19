@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Journey} from '../../classes/Journey';
 import {StationService} from '../../services/station.service';
 
@@ -10,14 +10,12 @@ import {StationService} from '../../services/station.service';
 export class JourneyComponent implements OnInit {
   journey: Journey = new Journey();
 
-  //@Output() updatedJourney = new EventEmitter<Journey>();
-
   constructor(private stationService: StationService) { }
 
   ngOnInit() {
   }
 
   submitJourney() {
-    console.log("ok");//this.updatedJourney.emit(this.journey);
+    console.log('ok');
   }
 }

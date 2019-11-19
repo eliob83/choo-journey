@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { retry, map, catchError, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Station } from '../classes/Station';
-import { Journey } from '../classes/Journey';
-import { API_TOKEN } from '../token';
+import {Station} from '../classes/Station';
+import {Journey} from '../classes/Journey';
+import {API_TOKEN} from '../token';
 
 
 const endpoint = 'https://api.navitia.io/v1/';
@@ -51,10 +49,10 @@ export class StationService {
     );*/
   }
 
-  
   searchJourney(jrny: Journey) {
-    let rq = endpoint + 'coverage/sncf/';
-    rq += '?from=' + jrny.from + '&to=' + jrny.to + '&datetime=' + jrny.dateTime + '&';
+    console.log(jrny);
+    // let rq = endpoint + 'coverage/sncf/';
+    // rq += '?from=' + jrny.from + '&to=' + jrny.to + '&datetime=' + jrny.dateTime + '&';
   }
 
   getLoadedStations() {
