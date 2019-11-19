@@ -1,7 +1,3 @@
-import {Component} from '@angular/core';
-import {StationService} from '../../services/station.service';
-import {Station} from '../../classes/Station';
-
 import { Component, Input, Output } from '@angular/core';
 import { StationService } from '../../services/station.service';
 import { EventEmitter } from 'events';
