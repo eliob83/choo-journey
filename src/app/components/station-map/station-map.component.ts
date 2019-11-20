@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import {StationService} from '../../services/station.service';
+import {StationService} from '../../services/station/station.service';
 
 import * as L from 'leaflet';
-import { Icon } from 'leaflet';
+import {Icon} from 'leaflet';
 
-import { Station, StationType } from 'src/app/classes/Station';
+import {Station, StationType} from 'src/app/classes/Station';
 
 
 @Component({
@@ -16,19 +16,20 @@ import { Station, StationType } from 'src/app/classes/Station';
 export class StationMapComponent implements OnInit {
   stationsMap: L.Map = null;
   markers: Array<any> = [];
-  icons: Icon[][] = [[ ], [ ], [ ]];
+  icons: Icon[][] = [[], [], []];
 
 
-  constructor(private stationsService: StationService) { }
+  constructor(private stationsService: StationService) {
+  }
 
   ngOnInit() {
     // Map declaration with France-centered coords and zoom
     this.stationsMap = L.map('stationsMap').setView([47.0833, 2.4], 6);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: 'stationsMap' }).addTo(this.stationsMap);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'stationsMap'}).addTo(this.stationsMap);
 
 
     // Icons load
-    this.icons[0][0] = L.icon({ iconUrl: '../assets/map/interrogation.png', iconSize: [50, 50], iconAnchor: [25, 25] });
+    this.icons[0][0] = L.icon({iconUrl: '../assets/map/interrogation.png', iconSize: [50, 50], iconAnchor: [25, 25]});
     for (let t = StationType.TRAIN_STATION; t <= StationType.BUS_STATION; t++) {
       for (let i = 0; i < 9; i++) {
         this.icons[t][i] = L.icon(
@@ -65,13 +66,13 @@ export class StationMapComponent implements OnInit {
       // Non-zero coords (unknown)
       if (station.lat !== 0 || station.lon !== 0) {
         this.markers.push(L.marker(
-            [station.lat, station.lon],
-            // Random station type icon
-            { icon: this.icons[station.type][Math.floor(Math.random() * this.icons[station.type].length)] }
-            ).bindPopup(station.label).addTo(this.stationsMap).on('click', e => {
-              // Marker click push it on map observable
-              this.stationsService.mapSubjects.next(station);
-            })
+          [station.lat, station.lon],
+          // Random station type icon
+          {icon: this.icons[station.type][Math.floor(Math.random() * this.icons[station.type].length)]}
+          ).bindPopup(station.label).addTo(this.stationsMap).on('click', e => {
+            // Marker click push it on map observable
+            this.stationsService.mapSubjects.next(station);
+          })
         );
       }
     });

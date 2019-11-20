@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {StationService} from './station.service';
+import {StationService} from '../station/station.service';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Journey} from '../classes/Journey';
+import {Journey} from '../../classes/Journey';
 
 @Injectable({
   providedIn: 'root'

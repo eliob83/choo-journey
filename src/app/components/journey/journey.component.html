@@ -1,24 +1,27 @@
 <br>
-<div class="container">
-  <div class="row align-items-start">
-    <h2 class="col">Itinéraire</h2>
+<div id="journeyForm" class="jumbotron-fluid">
+  <div class="card-header row align-items-start">
+    <h2 class="col">Chercher un itinéraire</h2>
     <button type="button" class="btn btn-info col-1" (click)="staticModal.show()">Aide</button>
   </div>
 
   <form action="#" autocomplete="off">
     <div class="form-row">
       <div class="form-group col-5">
-        <label for="fromJourney">Mise en train</label>
+        <label for="fromJourney"><small>Mise en train <b>*</b></small></label>
         <input type="search" class="form-control form-control-lg" name="fromJourney" id="fromJourney"
-               placeholder="Toulon" [(ngModel)]="stationFrom" (keydown)="stopSearchDelay()"
-               (keyup)="startSearchDelayed(stationFrom.name, Options.FROM)"
+               placeholder="Toulon" [(ngModel)]="stationFrom.name" (keydown)="stopSearchDelay($event)"
+               (keyup)="startSearchDelayed($event, stationFrom.name, Options.FROM)"
                [typeahead]="journeyService.autoCompleteSearchFrom" [typeaheadScrollable]="true"
-               [typeaheadOptionsInScrollableView]="maxScroll" typeaheadOptionField="name" [typeaheadAsync]="true"
-               [isAnimated]="true" [adaptivePosition]="true" required>
+               (typeaheadOnSelect)="getStationId($event, 'from')"
+               [typeaheadOptionsInScrollableView]="maxScroll"
+               typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
+               pattern="[A-Z|a-z]"
+               required>
       </div>
 
       <div class="form-group offset-1">
-        <label for="dateTimeJourney">Date du voyage</label>
+        <label for="dateTimeJourney"><small>Date du voyage <b>*</b></small></label>
         <input type="text" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
                [placeholder]="placeholderDate"
                [(ngModel)]="dateJourney" bsDatepicker [bsValue]="today" [minDate]="today"
@@ -32,22 +35,25 @@
 
     <div class="form-row">
       <div class="form-group col-5">
-        <label for="toJourney">Destination</label>
+        <label for="toJourney"><small>Destination <b>*</b></small></label>
         <input type="search" class="form-control form-control-lg" name="toJourney" id="toJourney"
-               placeholder="Seignosse" [(ngModel)]="stationTo" (keydown)="stopSearchDelay()"
-               (keyup)="startSearchDelayed(stationTo.name, Options.TO)" [typeahead]="journeyService.autoCompleteSearchTo"
+               placeholder="Seignosse" [(ngModel)]="stationTo.name" (keydown)="stopSearchDelay($event)"
+               (keyup)="startSearchDelayed($event, stationTo.name, Options.TO)"
+               [typeahead]="journeyService.autoCompleteSearchTo"
+               (typeaheadOnSelect)="getStationId($event, 'to')"
                typeaheadOptionField="name" [typeaheadAsync]="true" [typeaheadScrollable]="true"
-               [typeaheadOptionsInScrollableView]="maxScroll" [isAnimated]="true" [adaptivePosition]="true" required>
+               [typeaheadOptionsInScrollableView]="maxScroll" [isAnimated]="true" [adaptivePosition]="true"
+               ngModel pattern="[A-Za-z]*" required>
       </div>
 
       <div class="form-group offset-1">
-        <label for="timeJourney">Heure du voyage</label>
+        <label for="timeJourney"><small>Heure du voyage</small></label>
         <timepicker id="timeJourney" [showMeridian]="false" [showSpinners]="false"
                     [showSeconds]="true"></timepicker>
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg col-2 offset-4" (submit)="checkForm()">Rechercher</button>
+    <button type="submit" class="btn btn-outline-primary btn-lg" (submit)="checkForm()">Rechercher</button>
   </form>
 </div>
 
@@ -61,6 +67,8 @@
 
       <div class="modal-body text-center">
         Entrez la ville dont vous souhaitez partir, la ville d'arrivée, et votre date de départ.
+        <br>
+        <i>L'heure est facultative</i>
       </div>
 
       <div class="modal-footer">

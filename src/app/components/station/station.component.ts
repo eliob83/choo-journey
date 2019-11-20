@@ -1,10 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import { StationService } from 'src/app/services/station.service';
+import {StationService} from 'src/app/services/station/station.service';
 
-import { Station, StationType } from '../../classes/Station';
+import {Station, StationType} from '../../classes/Station';
 
-import { faTrain, faBus, faQuestion } from '@fortawesome/free-solid-svg-icons';
+import {faBus, faQuestion, faTrain} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({

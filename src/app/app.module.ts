@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {BsDatepickerModule, TimepickerModule, TypeaheadModule} from 'ngx-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {NavbarComponent} from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     StationComponent,
     StationListComponent,
     StationMapComponent,
-    JourneyComponent
+    JourneyComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

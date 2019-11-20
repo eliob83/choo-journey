@@ -1,5 +1,6 @@
 import {Station} from './Station';
 
+// Options for the searchStation function / request
 export enum Options {
   FROM,
   TO,

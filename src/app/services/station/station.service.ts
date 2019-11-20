@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 
-import {Station} from '../classes/Station';
-import {Options} from '../classes/Journey';
+import {Station} from '../../classes/Station';
+import {Options} from '../../classes/Journey';
 
-import {API_TOKEN} from '../token';
+import {API_TOKEN} from '../../token';
 
 @Injectable({
   providedIn: 'root'
