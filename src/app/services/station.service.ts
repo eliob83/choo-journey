@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
 
-import { Station } from '../classes/Station';
+import {Station} from '../classes/Station';
+import {Options} from '../classes/Journey';
 
-import { API_TOKEN } from '../token';
-
+import {API_TOKEN} from '../token';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,15 @@ export class StationService {
   };
 
   // List update observable
-  stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]);
+  stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]); // Search
+  autoCompleteSearchFrom: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]); // From
+  autoCompleteSearchTo: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]); // To
   // Map update observable
   mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   // API call function
   apiCall(url: string): Observable<any> {
@@ -41,19 +44,33 @@ export class StationService {
     );*/
   }
 
-  // Stations list search
-  searchStation(stationName: string, nb: number) {
+  // Subscribing data to Observer
+  subscribeData(data: {}, opt: Options): void {
     const stations = [];
 
-    this.loadStationsLike(stationName, nb).subscribe((data: {}) => {
-      if (data[`places`] !== undefined && data[`places`].length) {
-        data[`places`].forEach(element => {
-          stations.push(new Station(element));
-        });
+    if (data[`places`] !== undefined && data[`places`].length) {
+      data[`places`].forEach(element => {
+        stations.push(new Station(element));
+      });
 
-        // Push stations list in observable
-        this.stationsSubjects.next(stations);
+      switch (opt) {
+        case Options.FROM:
+          this.autoCompleteSearchFrom.next(stations);
+          break;
+
+        case Options.TO:
+          this.autoCompleteSearchTo.next(stations);
+          break;
+
+        case Options.SEARCH:
+          this.stationsSubjects.next(stations);
+          break;
       }
-    });
+    }
+  }
+
+  // Stations list search
+  searchStation(stationName: string, count: number, opt: Options): void {
+    this.loadStationsLike(stationName, count).subscribe((data: {}) => this.subscribeData(data, opt));
   }
 }

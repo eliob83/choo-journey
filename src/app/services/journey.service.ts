@@ -15,24 +15,28 @@ export class JourneyService extends StationService {
     super(http);
   }
 
-  loadJourneys(journey: Journey, nb: number): Observable<any> {
-    let url = this.endpoint + 'coverage/sncf/journeys?from=';
-    url += journey.from.id + '&to=' + journey.to.id + '&datetime=' + journey.dateTime + '&count=' + nb;
-
-    return this.http.get(url, this.headers);
+  // API search like Journey
+  loadJourneys(journey: Journey, count: number): Observable<any> {
+    const url = this.endpoint + 'coverage/sncf/journeys?from='
+      + journey.from.id + '&to=' + journey.to.id + '&datetime=' + journey.dateTime + '&count=' + count;
+    return this.apiCall(url);
   }
 
-  searchJourney(j: Journey, nb: number): void {
+  // Subscribing data to Observer
+  subscribeData(data: {}): void {
     const journeys = [];
 
-    this.loadJourneys(j, nb).subscribe((data: {}) => {
-      if (data[`journeys`] !== undefined && data[`journeys`].length) {
-        data[`journeys`].forEach(element => {
-          journeys.push(new Journey(element));
-        });
+    if (data[`journeys`] !== undefined && data[`journeys`].length) {
+      data[`journeys`].forEach(element => {
+        journeys.push(new Journey(element));
+      });
 
-        this.journeySubjects.next(journeys);
-      }
-    });
+      this.journeySubjects.next(journeys);
+    }
+  }
+
+  // Journeys list search
+  searchJourney(j: Journey, count: number): void {
+    this.loadJourneys(j, count).subscribe((data: {}) => this.subscribeData(data));
   }
 }
