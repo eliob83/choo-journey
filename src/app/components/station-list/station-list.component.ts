@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
-
-import { StationService } from '../../services/station.service';
-
-import { Station } from '../../classes/Station';
-
+import {Component} from '@angular/core';
+import {StationService} from '../../services/station.service';
+import {Station} from '../../classes/Station';
+import {Options} from '../../classes/Journey';
 
 @Component({
   selector: 'app-station-list',
@@ -36,7 +34,7 @@ export class StationListComponent {
   // Search stationName thanks to API
   searchStations() {
     this.notSearched = false;
-    this.stationService.searchStation(this.stationName, 20);
+    this.stationService.searchStation(this.stationName, 20, Options.SEARCH);
   }
 
   // Set station as selected

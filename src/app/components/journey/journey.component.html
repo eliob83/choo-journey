@@ -1,30 +1,54 @@
+<br>
 <div class="container">
-  <h2>Itinéraire</h2>
+  <div class="row align-items-start">
+    <h2 class="col">Itinéraire</h2>
+    <button type="button" class="btn btn-info col-1" (click)="staticModal.show()">Aide</button>
+  </div>
 
-  <form autocomplete="off" action="#" (ngSubmit)="submitJourney()">
+  <form action="#" autocomplete="off">
     <div class="form-row">
-      <div class="form-group col-md-6 autocomplete">
-        <label for="from">Mise en train</label>
-        <input type="search" class="form-control basicAutoComplete" id="from" name="from" placeholder="Toulon"
-               [(ngModel)]="journey.from">
+      <div class="form-group col-5">
+        <label for="fromJourney">Mise en train</label>
+        <input type="search" class="form-control form-control-lg" name="fromJourney" id="fromJourney"
+               placeholder="Toulon" [(ngModel)]="stationFrom" (keydown)="stopSearchDelay()"
+               (keyup)="startSearchDelayed(stationFrom.name, Options.FROM)"
+               [typeahead]="journeyService.autoCompleteSearchFrom" [typeaheadScrollable]="true"
+               [typeaheadOptionsInScrollableView]="maxScroll" typeaheadOptionField="name" [typeaheadAsync]="true"
+               [isAnimated]="true" [adaptivePosition]="true" required>
       </div>
 
-      <div class="form-group col-md-6 autocomplete">
-        <label for="to">Destination</label>
-        <input type="search" class="form-control" id="to" name="to" placeholder="Seignosse" [(ngModel)]="journey.to">
-      </div>
-
-      <div class="form-group">
-        <label for="datetime">Date de voyage</label>
-        <input type="date" class="form-control" id="datetime" name="datetime" placeholder="jj/MM/yyy"
-               [(ngModel)]="journey.dateTime">
+      <div class="form-group offset-1">
+        <label for="dateTimeJourney">Date du voyage</label>
+        <input type="text" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
+               [placeholder]="placeholderDate"
+               [(ngModel)]="dateJourney" bsDatepicker [bsValue]="today" [minDate]="today"
+               [bsConfig]="{dateInputFormat: 'YYYY-MM-DD', isAnimated: true, adaptivePosition: true, containerClass: 'theme-blue'}">
+        <!--
+        <input type="date" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
+               placeholder="jj/MM/yyyy" [(ngModel)]="dateJourney">
+               -->
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" (click)="stationService.searchJourney(journey)">Rechercher</button>
-  </form>
+    <div class="form-row">
+      <div class="form-group col-5">
+        <label for="toJourney">Destination</label>
+        <input type="search" class="form-control form-control-lg" name="toJourney" id="toJourney"
+               placeholder="Seignosse" [(ngModel)]="stationTo" (keydown)="stopSearchDelay()"
+               (keyup)="startSearchDelayed(stationTo.name, Options.TO)" [typeahead]="journeyService.autoCompleteSearchTo"
+               typeaheadOptionField="name" [typeaheadAsync]="true" [typeaheadScrollable]="true"
+               [typeaheadOptionsInScrollableView]="maxScroll" [isAnimated]="true" [adaptivePosition]="true" required>
+      </div>
 
-  <button type="button" class="btn btn-info" (click)="staticModal.show()">Aide</button>
+      <div class="form-group offset-1">
+        <label for="timeJourney">Heure du voyage</label>
+        <timepicker id="timeJourney" [showMeridian]="false" [showSpinners]="false"
+                    [showSeconds]="true"></timepicker>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg col-2 offset-4" (submit)="checkForm()">Rechercher</button>
+  </form>
 </div>
 
 <div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog"
