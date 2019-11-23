@@ -15,10 +15,13 @@ export class StationListComponent {
 
   // Search items
   stationName: string;
-  notSearched = true;
+  lastStationName: string;
+  searchState = true;
 
 
   constructor(private stationService: StationService) {
+    this.searchState = true;
+
     // List update observable
     stationService.stationsSubjects.subscribe((data) => {
       this.stations = data;
@@ -33,8 +36,12 @@ export class StationListComponent {
 
   // Search stationName thanks to API
   searchStations() {
-    this.notSearched = false;
-    this.stationService.searchStation(this.stationName, 20, Options.SEARCH);
+    if (this.stationName !== undefined && this.stationName !== '') {
+      this.stationService.searchStation(this.stationName, 10, Options.SEARCH);
+
+      this.searchState = false;
+      this.lastStationName = this.stationName;
+    }
   }
 
   // Set station as selected

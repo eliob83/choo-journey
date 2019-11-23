@@ -1,16 +1,23 @@
-<h2>Liste des stations</h2>
-<br>
-<form action="#" class="row align-items-start" (ngSubmit)="searchStations()">
-  <div class="form-group col-5 left">
-    <input class="form-control form-control-lg" [(ngModel)]="stationName" name="stationName" id="stationName"
-           placeholder="Marseille"/>
-    <label for="stationName"><small>Nom de la station</small></label>
+<h2 class="text-center mb-4">Liste des stations</h2>
+
+<form action="#" class="mx-auto row align-items-start" (ngSubmit)="searchStations()">
+  <div class="form-group col-12 left mx-auto">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label for="stationName" class="input-group-text"><small>Nom de la station</small></label>
+      </div>
+
+      <input class="form-control form-control-lg" [(ngModel)]="stationName" name="stationName" id="stationName" placeholder="Marseille" />
+
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+      </div>
+    </div>
   </div>
-  <button class="btn btn-lg btn-outline-primary col-3" type="submit">Rechercher</button>
 </form>
 
 <!-- Station list as accordion -->
-<div class="clear accordion col" id="accordionExample">
+<div class="clear accordion col" id="stationAccordion">
   <ng-container *ngIf="stations?.length; then gotStation; else noStation"></ng-container>
 
   <!-- No station in the list -->
@@ -19,10 +26,10 @@
       <div class="card-header">
         <h2 class="mb-0">
           <button class="btn btn-link disabled" type="button">
-            <ng-container *ngIf="notSearched; then notSearched; else noResult"></ng-container>
+            <ng-container *ngIf="searchState==true; then notSearched; else noResult"></ng-container>
 
             <ng-template #notSearched>Veuillez rechercher une station.</ng-template>
-            <ng-template #noResult>Aucun résultat trouvé avec "{{ stationName }}".</ng-template>
+            <ng-template #noResult>Aucun résultat trouvé avec "{{ lastStationName }}".</ng-template>
           </button>
         </h2>
       </div>

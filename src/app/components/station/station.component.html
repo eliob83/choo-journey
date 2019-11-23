@@ -15,7 +15,7 @@
         </h2>
     </div>
 
-    <div [id]="'collapse' + index" class="collapse" [attr.aria-labelledby]="'heading' + index" data-parent="#accordionExample">
+    <div [id]="'collapse' + index" class="collapse" [attr.aria-labelledby]="'heading' + index" data-parent="#stationAccordion">
         <div class="card-body">
             Station : {{ station.label }} ({{ station.id }})<br />
             <span *ngIf="station.city !== undefined">{{ station.city }} - </span><span *ngIf="station.zipCode !== undefined">{{ station.zipCode }}</span>

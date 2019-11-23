@@ -52,20 +52,20 @@ export class StationService {
       data[`places`].forEach(element => {
         stations.push(new Station(element));
       });
+    }
 
-      switch (opt) {
-        case Options.FROM:
-          this.autoCompleteSearchFrom.next(stations);
-          break;
+    switch (opt) {
+      case Options.FROM:
+        this.autoCompleteSearchFrom.next(stations);
+        break;
 
-        case Options.TO:
-          this.autoCompleteSearchTo.next(stations);
-          break;
+      case Options.TO:
+        this.autoCompleteSearchTo.next(stations);
+        break;
 
-        case Options.SEARCH:
-          this.stationsSubjects.next(stations);
-          break;
-      }
+      case Options.SEARCH:
+        this.stationsSubjects.next(stations);
+        break;
     }
   }
 
