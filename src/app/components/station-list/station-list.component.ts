@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {StationService} from '../../services/station/station.service';
 import {Station} from '../../classes/Station';
 import {Options} from '../../classes/Journey';
+import {SearchState} from '../../classes/SearchState';
 
 @Component({
   selector: 'app-station-list',
@@ -9,6 +10,8 @@ import {Options} from '../../classes/Journey';
   styleUrls: ['./station-list.component.css']
 })
 export class StationListComponent {
+  SearchState = SearchState;
+
   // List items
   stations: Array<Station> = [ ];
   selectedStation: Station = null;
@@ -16,30 +19,32 @@ export class StationListComponent {
   // Search items
   stationName: string;
   lastStationName: string;
-  searchState = true;
+
+  currentState: SearchState = SearchState.UNDEFINED;
 
 
   constructor(private stationService: StationService) {
-    this.searchState = true;
 
     // List update observable
     stationService.stationsSubjects.subscribe((data) => {
       this.stations = data;
       this.selectedStation = null;
+      this.currentState = SearchState.COMPLETED;
     });
 
     // Map update observable
     stationService.mapSubjects.subscribe(data => {
       this.selectedStation = data;
     });
+    this.currentState = SearchState.UNDEFINED;
   }
 
   // Search stationName thanks to API
   searchStations() {
-    if (this.stationName !== undefined && this.stationName !== '') {
+    if (this.stationName !== undefined && this.stationName !== '' && this.stationName !== this.lastStationName) {
       this.stationService.searchStation(this.stationName, 10, Options.SEARCH);
 
-      this.searchState = false;
+      this.currentState = SearchState.LOADING;
       this.lastStationName = this.stationName;
     }
   }

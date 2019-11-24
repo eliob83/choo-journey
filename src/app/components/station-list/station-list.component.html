@@ -10,7 +10,14 @@
       <input class="form-control form-control-lg" [(ngModel)]="stationName" name="stationName" id="stationName" placeholder="Marseille" />
 
       <div class="input-group-append">
-        <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+        <button class="btn btn-outline-primary" type="submit">
+          <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
+
+          <ng-container *ngIf="currentState==SearchState.LOADING">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="ml-2">Recherche...</span>
+          </ng-container>
+        </button>
       </div>
     </div>
   </div>
@@ -18,7 +25,7 @@
 
 <!-- Station list as accordion -->
 <div class="clear accordion col" id="stationAccordion">
-  <ng-container *ngIf="stations?.length; then gotStation; else noStation"></ng-container>
+  <ng-container *ngIf="stations?.length && currentState!=SearchState.LOADING; then gotStation; else noStation"></ng-container>
 
   <!-- No station in the list -->
   <ng-template #noStation>
@@ -26,10 +33,19 @@
       <div class="card-header">
         <h2 class="mb-0">
           <button class="btn btn-link disabled" type="button">
-            <ng-container *ngIf="searchState==true; then notSearched; else noResult"></ng-container>
+            <!-- State message -->
+            <ng-container [ngSwitch]="currentState">
+              <ng-container *ngSwitchCase="SearchState.LOADING">
+                  <div class="d-flex align-items-center">
+                      <div class="spinner-grow text-primary" role="status" aria-hidden="true"></div>
+                      <strong class="ml-4">Recherche en cours...</strong>
+                  </div>
+              </ng-container>
 
-            <ng-template #notSearched>Veuillez rechercher une station.</ng-template>
-            <ng-template #noResult>Aucun résultat trouvé avec "{{ lastStationName }}".</ng-template>
+              <ng-container *ngSwitchCase="SearchState.COMPLETED">Aucun résultat trouvé avec "{{ lastStationName }}".</ng-container>
+
+              <ng-container *ngSwitchDefault>Veuillez rechercher une station.</ng-container>
+            </ng-container>
           </button>
         </h2>
       </div>
@@ -39,8 +55,7 @@
   <!-- List display -->
   <ng-template #gotStation>
         <span *ngFor="let station of stations; let i = index">
-            <app-station (openEvent)="openStation($event)" [station]="station" [index]="i"
-                         [selected]="station==selectedStation"></app-station>
+            <app-station (openEvent)="openStation($event)" [station]="station" [index]="i" [selected]="station==selectedStation"></app-station>
         </span>
   </ng-template>
 </div>
