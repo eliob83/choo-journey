@@ -11,8 +11,10 @@ export class Journey {
   from: Station;
   to: Station;
   dateTime: string;
+
   firstTransportation: string;
   lastTransportation: string;
+
 
   constructor(args: Array<any>) {
     this.from = new Station(args[`sections`][0][`from`]);
