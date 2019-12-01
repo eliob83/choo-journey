@@ -3,3 +3,9 @@ export enum SearchState {
     LOADING,
     COMPLETED
 }
+
+export enum SearchOption {
+    LIST,
+    FROM_INPUT,
+    TO_INPUT
+}
