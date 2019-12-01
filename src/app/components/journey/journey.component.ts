@@ -1,10 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {Journey, Options} from '../../classes/Journey';
+
 import {JourneyService} from '../../services/journey/journey.service';
-import {StationService} from '../../services/station/station.service';
+
 import {Station} from '../../classes/Station';
+import {Journey, JourneyDate} from '../../classes/Journey';
+import {SearchOption} from '../../classes/Search';
+
 import {TypeaheadMatch} from 'ngx-bootstrap';
-import { Observable } from 'rxjs';
+import { StationService } from 'src/app/services/station/station.service';
+
 
 @Component({
   selector: 'app-journey',
@@ -19,16 +23,16 @@ export class JourneyComponent implements OnInit {
     'Home', 'End', 'PageUp', 'PageDown', 'Enter', 'CapsLock', 'AltGraph', 'NumLock'];
 
   // Option enum
-  Options = Options;
+  SearchOption = SearchOption;
   // Journeys result after search
   journeys: Array<Journey> = [];
 
   // 3 main inputs in the form
   stationFrom: Station = new Station(null); // Departure
   stationTo: Station = new Station(null); // Destination
-  dateJourney = ''; // Date
+  dateJourney: Date; // Date
   // Args for the search function
-  journey: [string, string, string] = [this.stationFrom.id, this.stationTo.id, this.dateJourney];
+  // journey: [string, string, string] = [this.stationFrom.id, this.stationTo.id, this.dateJourney];
   // Id of the setTimeout
   idWait = 0;
 
@@ -68,7 +72,7 @@ export class JourneyComponent implements OnInit {
   }
 
   // Initialize the request with delay
-  startSearchDelayed(key, str: string, opt: Options): void {
+  startSearchDelayed(key, str: string, opt: SearchOption): void {
     this.checkKey(key);
     this.idWait = setTimeout(() => {
       this.stationService.searchStation(str, 20, opt);
@@ -86,12 +90,12 @@ export class JourneyComponent implements OnInit {
 
   // Checking the values of departure (id), destination (id) and date (string)
   checkForm(): void {
-    if (this.journey[0] !== undefined && this.journey[1] !== undefined && this.journey[2] !== undefined) {
+    /*if (this.journey[0] !== undefined && this.journey[1] !== undefined && this.journey[2] !== undefined) {
       this.reformatDate(this.journey[2]);
-      this.submitJourney(this.journey);
+      //this.submitJourney(this.journey);
     } else {
       console.log('NON');
-    }
+    }*/
   }
 
   // Collecting information from Observables of departure / destination
@@ -106,8 +110,10 @@ export class JourneyComponent implements OnInit {
   }
 
   // Calls service to search journeys
-  submitJourney(journey): void {
-    this.journeyService.searchJourney(journey, this.nbJourneys);
+  submitJourney(): void {
+    if (this.stationFrom !== undefined && this.stationTo !== undefined && this.dateJourney !== undefined) {
+      this.journeyService.searchJourney(this.stationFrom.id, this.stationTo.id, this.formatDate(this.dateJourney).getYMD(), 10);
+    }
   }
 
   // Formatting date for the request
@@ -117,12 +123,28 @@ export class JourneyComponent implements OnInit {
   }
 
 
-  typeaheadNoResults(e: boolean, opt: Options) {
-    if (opt === Options.TO) {
+  typeaheadNoResults(e: boolean, opt: SearchOption) {
+    if (opt === SearchOption.TO_INPUT) {
       this.noResultTo = e;
     }
-    if (opt === Options.FROM) {
+    if (opt === SearchOption.FROM_INPUT) {
       this.noResultFrom = e;
     }
+  }
+
+  formatDate(date: Date) {
+    const args = { };
+
+    let splited = date.toJSON().split('T')[0].split('-', 3);
+    args[`day`] = splited[2];
+    args[`month`] = splited[1];
+    args[`year`] = splited[0];
+
+    splited = date.toJSON().split('T')[1].split(':');
+    args[`hour`] = splited[0];
+    args[`minute`] = splited[1];
+    args[`second`] = splited[2].substr(0, 2);
+
+    return new JourneyDate(args);
   }
 }

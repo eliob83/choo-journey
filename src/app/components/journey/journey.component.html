@@ -5,17 +5,17 @@
     <button type="button" class="btn btn-info col-1" (click)="staticModal.show()">Aide</button>
   </div>
 
-  <form action="#" autocomplete="off">
+  <form action="#" autocomplete="off" (ngSubmit)="submitJourney()">
       <div class="form-row">
       <div class="form-group col-5">
         <label for="fromJourney"><small>Mise en train <b>*</b></small></label>
         <input type="search" class="form-control form-control-lg" name="fromJourney" id="fromJourney"
                placeholder="Toulon" [(ngModel)]="stationFrom.name" (keydown)="stopSearchDelay($event)"
-               (keyup)="startSearchDelayed($event, stationFrom.name, Options.FROM)"
-               [typeahead]="stationService.autoCompleteSearchFrom" [typeaheadScrollable]="true"
+               (keyup)="startSearchDelayed($event, stationFrom.name, SearchOption.FROM_INPUT)"
+               [typeahead]="stationService.fromSearchObservable" [typeaheadScrollable]="true"
                [class.is-invalid]="noResultFrom"
                (typeaheadOnSelect)="getStationId($event, 'from')"
-               (typeaheadNoResults)="typeaheadNoResults($event, Options.FROM)"
+               (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.FROM_INPUT)"
                [typeaheadOptionsInScrollableView]="maxScroll"
                typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
                pattern="[A-Z|a-z]"
@@ -40,11 +40,11 @@
         <label for="toJourney"><small>Destination <b>*</b></small></label>
         <input type="search" class="form-control form-control-lg" name="toJourney" id="toJourney"
                placeholder="Seignosse" [(ngModel)]="stationTo.name" (keydown)="stopSearchDelay($event)"
-               (keyup)="startSearchDelayed($event, stationTo.name, Options.TO)"
+               (keyup)="startSearchDelayed($event, stationTo.name, SearchOption.TO_INPUT)"
                [class.is-invalid]="noResultTo"
-               [typeahead]="stationService.autoCompleteSearchTo"
+               [typeahead]="stationService.toSearchObservable"
                (typeaheadOnSelect)="getStationId($event, 'to')"
-               (typeaheadNoResults)="typeaheadNoResults($event, Options.TO)"
+               (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.TO_INPUT)"
                typeaheadOptionField="name" [typeaheadAsync]="true" [typeaheadScrollable]="true"
                [typeaheadOptionsInScrollableView]="maxScroll" [isAnimated]="true" [adaptivePosition]="true"
                ngModel pattern="[A-Za-z]*" required>
@@ -57,8 +57,18 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-outline-primary btn-lg" (submit)="checkForm()">Rechercher</button>
+    <button type="submit" class="btn btn-outline-primary btn-lg">Rechercher</button>
   </form>
+</div>
+
+<div>
+  <ul>
+    <li *ngFor="let journey of journeys">
+      {{ journey.from }} -> {{ journey.to }} ( {{ journey.dateTime }})
+      <br />
+      {{ journey.firstTransportation }} -> {{ journey.lastTransportation }}
+    </li>
+  </ul>
 </div>
 
 <div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog"
