@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {StationComponent} from './components/station/station.component';
 import {StationListComponent} from './components/station-list/station-list.component';
 import {StationMapComponent} from './components/station-map/station-map.component';
-import {JourneyComponent} from './components/journey/journey.component';
+import {JourneyListComponent} from './components/journey-list/journey-list.component';
 
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -23,7 +23,7 @@ import {NavbarComponent} from './components/navbar/navbar.component';
     StationComponent,
     StationListComponent,
     StationMapComponent,
-    JourneyComponent,
+    JourneyListComponent,
     NavbarComponent
   ],
   imports: [

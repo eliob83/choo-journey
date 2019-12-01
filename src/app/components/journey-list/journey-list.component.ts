@@ -1,21 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 
+import {StationService} from 'src/app/services/station/station.service';
 import {JourneyService} from '../../services/journey/journey.service';
 
 import {Station} from '../../classes/Station';
 import {Journey, JourneyDate} from '../../classes/Journey';
-import {SearchOption} from '../../classes/Search';
+import {SearchOption as SearchOption} from '../../classes/Search';
 
 import {TypeaheadMatch} from 'ngx-bootstrap';
-import { StationService } from 'src/app/services/station/station.service';
 
 
 @Component({
-  selector: 'app-journey',
-  templateUrl: './journey.component.html',
-  styleUrls: ['./journey.component.css']
+  selector: 'app-journey-list',
+  templateUrl: './journey-list.component.html',
+  styleUrls: ['./journey-list.component.css']
 })
-export class JourneyComponent implements OnInit {
+export class JourneyListComponent implements OnInit {
 
   // Tab where keys are stored. The request will not be sent if one of those keys is pressed.
   private readonly keyExceptions: string[] = [' ', 'Shift', 'Control', 'Alt',
@@ -23,7 +23,6 @@ export class JourneyComponent implements OnInit {
     'Home', 'End', 'PageUp', 'PageDown', 'Enter', 'CapsLock', 'AltGraph', 'NumLock'];
 
   // Option enum
-  SearchOption = SearchOption;
   // Journeys result after search
   journeys: Array<Journey> = [];
 

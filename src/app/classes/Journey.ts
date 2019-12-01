@@ -1,5 +1,6 @@
 import {Station} from './Station';
 
+
 export class JourneyDate {
   day: number;
   month: number;
@@ -30,6 +31,10 @@ export class JourneyDate {
   getTime() {
     return this.hour + ':' + this.minute + ':' + this.second;
   }
+
+  toString() {
+    return this.getYMD() + ' ' + this.getTime();
+  }
 }
 
 export class Journey {
@@ -42,7 +47,6 @@ export class Journey {
 
 
   constructor(args: Array<any>) {
-    console.log(args);
     this.from = new Station(args[`sections`][0][`from`]);
     this.to = new Station(args[`sections`][args[`sections`].length - 1][`to`]);
   }

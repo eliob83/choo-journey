@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
+
 import {StationService} from '../../services/station/station.service';
+
 import {Station} from '../../classes/Station';
-import {SearchOption} from '../../classes/Search';
-import {SearchState} from '../../classes/Search';
+import {SearchOption, SearchState} from '../../classes/Search';
+
 
 @Component({
   selector: 'app-station-list',
@@ -10,6 +12,7 @@ import {SearchState} from '../../classes/Search';
   styleUrls: ['./station-list.component.css']
 })
 export class StationListComponent {
+  // References
   SearchState = SearchState;
 
   // List items
@@ -20,11 +23,10 @@ export class StationListComponent {
   stationName: string;
   lastStationName: string;
 
-  currentState: SearchState = SearchState.UNDEFINED;
+  currentState: SearchState;
 
 
   constructor(private stationService: StationService) {
-
     // List update observable
     stationService.listSearchObservable.subscribe((data) => {
       this.stations = data;
@@ -36,6 +38,7 @@ export class StationListComponent {
     stationService.mapSubjects.subscribe(data => {
       this.selectedStation = data;
     });
+
     this.currentState = SearchState.UNDEFINED;
   }
 

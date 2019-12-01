@@ -19,14 +19,12 @@ export class StationMapComponent implements OnInit {
   icons: Icon[][] = [[], [], []];
 
 
-  constructor(private stationsService: StationService) {
-  }
+  constructor(private stationsService: StationService) { }
 
   ngOnInit() {
     // Map declaration with France-centered coords and zoom
     this.stationsMap = L.map('stationsMap').setView([47.0833, 2.4], 6);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'stationsMap'}).addTo(this.stationsMap);
-
 
     // Icons load
     this.icons[0][0] = L.icon({iconUrl: '../assets/map/interrogation.png', iconSize: [50, 50], iconAnchor: [25, 25]});

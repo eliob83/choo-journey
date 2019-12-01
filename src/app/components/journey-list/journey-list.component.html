@@ -1,4 +1,4 @@
-<br>
+<br />
 <div id="journeyForm" class="jumbotron-fluid">
   <div class="card-header row align-items-start">
     <h2 class="col">Chercher un itinéraire</h2>
@@ -6,20 +6,19 @@
   </div>
 
   <form action="#" autocomplete="off" (ngSubmit)="submitJourney()">
-      <div class="form-row">
+    <div class="form-row">
       <div class="form-group col-5">
         <label for="fromJourney"><small>Mise en train <b>*</b></small></label>
-        <input type="search" class="form-control form-control-lg" name="fromJourney" id="fromJourney"
-               placeholder="Toulon" [(ngModel)]="stationFrom.name" (keydown)="stopSearchDelay($event)"
-               (keyup)="startSearchDelayed($event, stationFrom.name, SearchOption.FROM_INPUT)"
-               [typeahead]="stationService.fromSearchObservable" [typeaheadScrollable]="true"
-               [class.is-invalid]="noResultFrom"
-               (typeaheadOnSelect)="getStationId($event, 'from')"
-               (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.FROM_INPUT)"
-               [typeaheadOptionsInScrollableView]="maxScroll"
-               typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
-               pattern="[A-Z|a-z]"
-               required>
+        <input type="search" name="fromJourney" id="fromJourney"
+            class="form-control form-control-lg"
+            [class.is-invalid]="noResultFrom"
+            placeholder="Toulon" [(ngModel)]="stationFrom.name"
+            (keydown)="stopSearchDelay($event)" (keyup)="startSearchDelayed($event, stationFrom.name, SearchOption.FROM_INPUT)"
+            [typeahead]="stationService.fromSearchObservable" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="maxScroll"
+            (typeaheadOnSelect)="getStationId($event, 'from')"
+            (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.FROM_INPUT)"
+            typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true" pattern="[A-Z|a-z]"
+        required />
       </div>
 
       <div class="form-group offset-1">
@@ -38,22 +37,23 @@
     <div class="form-row">
       <div class="form-group col-5">
         <label for="toJourney"><small>Destination <b>*</b></small></label>
-        <input type="search" class="form-control form-control-lg" name="toJourney" id="toJourney"
-               placeholder="Seignosse" [(ngModel)]="stationTo.name" (keydown)="stopSearchDelay($event)"
-               (keyup)="startSearchDelayed($event, stationTo.name, SearchOption.TO_INPUT)"
-               [class.is-invalid]="noResultTo"
-               [typeahead]="stationService.toSearchObservable"
-               (typeaheadOnSelect)="getStationId($event, 'to')"
-               (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.TO_INPUT)"
-               typeaheadOptionField="name" [typeaheadAsync]="true" [typeaheadScrollable]="true"
-               [typeaheadOptionsInScrollableView]="maxScroll" [isAnimated]="true" [adaptivePosition]="true"
-               ngModel pattern="[A-Za-z]*" required>
+        <input type="search" name="toJourney" id="toJourney"
+            class="form-control form-control-lg"
+            [class.is-invalid]="noResultTo"
+            placeholder="Seignosse" [(ngModel)]="stationTo.name"
+            (keydown)="stopSearchDelay($event)" (keyup)="startSearchDelayed($event, stationTo.name, SearchOption.TO_INPUT)"
+            [typeahead]="stationService.toSearchObservable" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="maxScroll"
+            (typeaheadOnSelect)="getStationId($event, 'to')"
+            (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.TO_INPUT)"
+            typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
+            ngModel pattern="[A-Za-z]*"
+        required />
       </div>
 
       <div class="form-group offset-1">
         <label for="timeJourney"><small>Heure du voyage</small></label>
-        <timepicker id="timeJourney" [showMeridian]="false" [showSpinners]="false"
-                    [showSeconds]="true"></timepicker>
+        <timepicker id="timeJourney" [showMeridian]="false" [showSpinners]="false" [showSeconds]="true">
+        </timepicker>
       </div>
     </div>
 
@@ -64,15 +64,16 @@
 <div>
   <ul>
     <li *ngFor="let journey of journeys">
-      {{ journey.from }} -> {{ journey.to }} ( {{ journey.dateTime }})
+      {{ journey.from.name }} -> {{ journey.to.name }} ({{ journey.dateTime.toString }})
       <br />
       {{ journey.firstTransportation }} -> {{ journey.lastTransportation }}
     </li>
   </ul>
 </div>
 
-<div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+
+
+<div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -81,7 +82,7 @@
 
       <div class="modal-body text-center">
         Entrez la ville dont vous souhaitez partir, la ville d'arrivée, et votre date de départ.
-        <br>
+        <br />
         <i>L'heure est facultative</i>
       </div>
 
