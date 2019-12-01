@@ -6,14 +6,16 @@
   </div>
 
   <form action="#" autocomplete="off">
-    <div class="form-row">
+      <div class="form-row">
       <div class="form-group col-5">
         <label for="fromJourney"><small>Mise en train <b>*</b></small></label>
         <input type="search" class="form-control form-control-lg" name="fromJourney" id="fromJourney"
                placeholder="Toulon" [(ngModel)]="stationFrom.name" (keydown)="stopSearchDelay($event)"
                (keyup)="startSearchDelayed($event, stationFrom.name, Options.FROM)"
-               [typeahead]="journeyService.autoCompleteSearchFrom" [typeaheadScrollable]="true"
+               [typeahead]="stationService.autoCompleteSearchFrom" [typeaheadScrollable]="true"
+               [class.is-invalid]="noResultFrom"
                (typeaheadOnSelect)="getStationId($event, 'from')"
+               (typeaheadNoResults)="typeaheadNoResults($event, Options.FROM)"
                [typeaheadOptionsInScrollableView]="maxScroll"
                typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
                pattern="[A-Z|a-z]"
@@ -39,8 +41,10 @@
         <input type="search" class="form-control form-control-lg" name="toJourney" id="toJourney"
                placeholder="Seignosse" [(ngModel)]="stationTo.name" (keydown)="stopSearchDelay($event)"
                (keyup)="startSearchDelayed($event, stationTo.name, Options.TO)"
-               [typeahead]="journeyService.autoCompleteSearchTo"
+               [class.is-invalid]="noResultTo"
+               [typeahead]="stationService.autoCompleteSearchTo"
                (typeaheadOnSelect)="getStationId($event, 'to')"
+               (typeaheadNoResults)="typeaheadNoResults($event, Options.TO)"
                typeaheadOptionField="name" [typeaheadAsync]="true" [typeaheadScrollable]="true"
                [typeaheadOptionsInScrollableView]="maxScroll" [isAnimated]="true" [adaptivePosition]="true"
                ngModel pattern="[A-Za-z]*" required>

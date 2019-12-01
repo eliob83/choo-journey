@@ -17,9 +17,8 @@ export class JourneyService extends StationService {
 
   // API search like Journey
   loadJourneys(journey: Journey, count: number): Observable<any> {
-    const url = this.endpoint + 'coverage/sncf/journeys?from='
-      + journey.from.id + '&to=' + journey.to.id + '&datetime=' + journey.dateTime + '&count=' + count;
-    return this.apiCall(url);
+    return this.apiCall(this.endpoint + 'coverage/sncf/journeys?from=' + journey.from.id +
+      '&to=' + journey.to.id + '&datetime=' + journey.dateTime + '&count=' + count);
   }
 
   // Subscribing data to Observer

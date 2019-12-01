@@ -46,6 +46,7 @@ export class StationService {
 
   // Subscribing data to Observer
   subscribeData(data: {}, opt: Options): void {
+    console.log('Searching');
     const stations = [];
 
     if (data[`places`] !== undefined && data[`places`].length) {
@@ -60,17 +61,22 @@ export class StationService {
         break;
 
       case Options.TO:
+        console.log('c bon');
         this.autoCompleteSearchTo.next(stations);
         break;
 
       case Options.SEARCH:
         this.stationsSubjects.next(stations);
         break;
+
+      default:
+        console.error('subscribeData from searchStation : unknown option ' + opt);
     }
   }
 
   // Stations list search
   searchStation(stationName: string, count: number, opt: Options): void {
+    console.log('allo ' + stationName);
     this.loadStationsLike(stationName, count).subscribe((data: {}) => this.subscribeData(data, opt));
   }
 }

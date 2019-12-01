@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Journey, Options} from '../../classes/Journey';
 import {JourneyService} from '../../services/journey/journey.service';
+import {StationService} from '../../services/station/station.service';
 import {Station} from '../../classes/Station';
 import {TypeaheadMatch} from 'ngx-bootstrap';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-journey',
@@ -35,12 +37,14 @@ export class JourneyComponent implements OnInit {
   // Option for the journey request
   nbJourneys = 10;
 
-  // Today date
-  today: Date;
   // Placeholder for the date input (today)
   placeholderDate: string;
 
-  constructor(private journeyService: JourneyService) {
+  noResultTo = false;
+  noResultFrom = false;
+
+
+  constructor(private stationService: StationService, private journeyService: JourneyService) {
     // Journeys update observable
     journeyService.journeySubjects.subscribe(data => {
       this.journeys = data;
@@ -49,8 +53,8 @@ export class JourneyComponent implements OnInit {
 
   ngOnInit() {
     // Initialize today's date then setting up placeholder
-    this.today = new Date();
-    this.placeholderDate = this.today.getFullYear() + '-' + this.today.getMonth() + '-' + this.today.getDate();
+    const today = new Date();
+    this.placeholderDate = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
   }
 
   // Checking the key pressed with the keyExceptions tab
@@ -66,7 +70,9 @@ export class JourneyComponent implements OnInit {
   // Initialize the request with delay
   startSearchDelayed(key, str: string, opt: Options): void {
     this.checkKey(key);
-    this.idWait = setTimeout(() => this.journeyService.searchStation(str, 20, opt), 400);
+    this.idWait = setTimeout(() => {
+      this.stationService.searchStation(str, 20, opt);
+    }, 400);
     console.log(this.stationFrom);
   }
 
@@ -108,5 +114,15 @@ export class JourneyComponent implements OnInit {
   reformatDate(str: string): string {
     const strTab = str.split('-', 3);
     return strTab[0] + strTab[1] + strTab[2];
+  }
+
+
+  typeaheadNoResults(e: boolean, opt: Options) {
+    if (opt === Options.TO) {
+      this.noResultTo = e;
+    }
+    if (opt === Options.FROM) {
+      this.noResultFrom = e;
+    }
   }
 }
