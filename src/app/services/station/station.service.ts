@@ -1,39 +1,26 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 
-import {Station} from '../../classes/Station';
-import {Options} from '../../classes/Journey';
+import {ApiService} from '../api.service';
 
-import {API_TOKEN} from '../../token';
+import {Station} from '../../classes/Station';
+import {SearchOption} from '../../classes/Search';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class StationService {
-  protected readonly endpoint = 'https://api.navitia.io/v1/';
-  protected readonly headers = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: API_TOKEN
-    })
-  };
+export class StationService extends ApiService {
+  // Station search list observable
+  public listSearchObservable = new BehaviorSubject<Array<Station>>([]);
+  // Map pinpoint update observable
+  public mapSubjects = new BehaviorSubject<Station>(null);
 
-  // List update observable
-  stationsSubjects: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]); // Search
-  autoCompleteSearchFrom: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]); // From
-  autoCompleteSearchTo: BehaviorSubject<Array<Station>> = new BehaviorSubject<Array<Station>>([]); // To
-  // Map update observable
-  mapSubjects: BehaviorSubject<Station> = new BehaviorSubject<Station>(null);
+  // Journey search 'from' input observable
+  public fromSearchObservable = new BehaviorSubject<Array<Station>>([]);
+  // Journey search 'to' input observable
+  public toSearchObservable = new BehaviorSubject<Array<Station>>([]);
 
-
-  constructor(private httpClient: HttpClient) {
-  }
-
-  // API call function
-  apiCall(url: string): Observable<any> {
-    return this.httpClient.get(url, this.headers);
-  }
 
   // API search like stationName
   loadStationsLike(stationName: string, count: number): Observable<any> {
@@ -44,9 +31,8 @@ export class StationService {
     );*/
   }
 
-  // Subscribing data to Observer
-  subscribeData(data: {}, opt: Options): void {
-    console.log('Searching');
+  // Subscribing data to option-related Observer
+  subscribeData(data: {}, opt: SearchOption): void {
     const stations = [];
 
     if (data[`places`] !== undefined && data[`places`].length) {
@@ -56,27 +42,26 @@ export class StationService {
     }
 
     switch (opt) {
-      case Options.FROM:
-        this.autoCompleteSearchFrom.next(stations);
+      case SearchOption.FROM_INPUT:
+        this.fromSearchObservable.next(stations);
         break;
 
-      case Options.TO:
-        console.log('c bon');
-        this.autoCompleteSearchTo.next(stations);
+      case SearchOption.TO_INPUT:
+        this.toSearchObservable.next(stations);
         break;
 
-      case Options.SEARCH:
-        this.stationsSubjects.next(stations);
+      case SearchOption.LIST:
+        this.listSearchObservable.next(stations);
         break;
 
       default:
-        console.error('subscribeData from searchStation : unknown option ' + opt);
+        console.error('Error on \'subscribeData(*, ' + opt + ')\': unknown option');
+        break;
     }
   }
 
   // Stations list search
-  searchStation(stationName: string, count: number, opt: Options): void {
-    console.log('allo ' + stationName);
+  searchStation(stationName: string, count: number, opt: SearchOption): void {
     this.loadStationsLike(stationName, count).subscribe((data: {}) => this.subscribeData(data, opt));
   }
 }

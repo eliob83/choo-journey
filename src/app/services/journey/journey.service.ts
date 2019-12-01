@@ -1,24 +1,23 @@
 import {Injectable} from '@angular/core';
-import {StationService} from '../station/station.service';
-import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
+
+import {ApiService} from '../api.service';
+
 import {Journey} from '../../classes/Journey';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class JourneyService extends StationService {
+export class JourneyService extends ApiService {
+  // Journey results observable
+  public journeySubjects = new BehaviorSubject<Array<Journey>>([]);
 
-  public journeySubjects: BehaviorSubject<Array<Journey>> = new BehaviorSubject<Array<Journey>>([]);
-
-  constructor(private http: HttpClient) {
-    super(http);
-  }
 
   // API search like Journey
-  loadJourneys(journey: Journey, count: number): Observable<any> {
-    return this.apiCall(this.endpoint + 'coverage/sncf/journeys?from=' + journey.from.id +
-      '&to=' + journey.to.id + '&datetime=' + journey.dateTime + '&count=' + count);
+  loadJourneys(startStationId: string, endStationId: string, schedule: string, count: number): Observable<any> {
+    return this.apiCall(this.endpoint + 'coverage/sncf/journeys?from=' + startStationId +
+      '&to=' + endStationId + '&datetime=' + schedule + '&count=' + count);
   }
 
   // Subscribing data to Observer
@@ -29,13 +28,13 @@ export class JourneyService extends StationService {
       data[`journeys`].forEach(element => {
         journeys.push(new Journey(element));
       });
-
-      this.journeySubjects.next(journeys);
     }
+
+    this.journeySubjects.next(journeys);
   }
 
   // Journeys list search
-  searchJourney(j: Journey, count: number): void {
-    this.loadJourneys(j, count).subscribe((data: {}) => this.subscribeData(data));
+  searchJourney(startStationId: string, endStationId: string, schedule: string, count: number): void {
+    this.loadJourneys(startStationId, endStationId, schedule, count).subscribe((data: {}) => this.subscribeData(data));
   }
 }

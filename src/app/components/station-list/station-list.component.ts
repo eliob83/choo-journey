@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {StationService} from '../../services/station/station.service';
 import {Station} from '../../classes/Station';
-import {Options} from '../../classes/Journey';
-import {SearchState} from '../../classes/SearchState';
+import {SearchOption} from '../../classes/Search';
+import {SearchState} from '../../classes/Search';
 
 @Component({
   selector: 'app-station-list',
@@ -26,7 +26,7 @@ export class StationListComponent {
   constructor(private stationService: StationService) {
 
     // List update observable
-    stationService.stationsSubjects.subscribe((data) => {
+    stationService.listSearchObservable.subscribe((data) => {
       this.stations = data;
       this.selectedStation = null;
       this.currentState = SearchState.COMPLETED;
@@ -42,7 +42,7 @@ export class StationListComponent {
   // Search stationName thanks to API
   searchStations() {
     if (this.stationName !== undefined && this.stationName !== '' && this.stationName !== this.lastStationName) {
-      this.stationService.searchStation(this.stationName, 10, Options.SEARCH);
+      this.stationService.searchStation(this.stationName, 10, SearchOption.LIST);
 
       this.currentState = SearchState.LOADING;
       this.lastStationName = this.stationName;

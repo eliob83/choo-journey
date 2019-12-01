@@ -42,7 +42,7 @@ export class StationMapComponent implements OnInit {
     }
 
     // List update observable
-    this.stationsService.stationsSubjects.subscribe(data => {
+    this.stationsService.listSearchObservable.subscribe(data => {
       this.updateMarkers(data);
     });
 
