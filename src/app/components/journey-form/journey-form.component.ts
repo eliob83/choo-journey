@@ -5,7 +5,7 @@ import {JourneyService} from '../../services/journey/journey.service';
 
 import {Station} from '../../classes/Station';
 import {Journey, JourneyDate} from '../../classes/Journey';
-import {SearchOption} from '../../classes/Search';
+import {SearchOption, SearchState} from '../../classes/Search';
 
 import {TypeaheadMatch} from 'ngx-bootstrap';
 
@@ -51,11 +51,15 @@ export class JourneyFormComponent implements OnInit {
   noResultTo = false;
   noResultFrom = false;
 
+  currentState: SearchState = SearchState.UNDEFINED;
+  SearchState = SearchState;
+
 
   constructor(private stationService: StationService, private journeyService: JourneyService) {
     // Journeys update observable
     journeyService.journeySubjects.subscribe(data => {
       this.journeys = data;
+      this.currentState = SearchState.COMPLETED;
     });
   }
 
@@ -114,6 +118,7 @@ export class JourneyFormComponent implements OnInit {
   // Calls service to search journeys
   submitJourney(): void {
     if (this.stationFrom !== undefined && this.stationTo !== undefined && this.dateJourney !== undefined) {
+      this.currentState = SearchState.LOADING;
       this.journeyService.searchJourney(this.stationFrom.id, this.stationTo.id, (new JourneyDate(this.dateJourney.toJSON())).getYMD(), 10);
     }
   }
