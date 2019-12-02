@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {StationComponent} from './components/station/station.component';
 import {StationListComponent} from './components/station-list/station-list.component';
 import {StationMapComponent} from './components/station-map/station-map.component';
+import {JourneyFormComponent} from './components/journey-form/journey-form.component';
 import {JourneyListComponent} from './components/journey-list/journey-list.component';
 
 import {FormsModule} from '@angular/forms';
@@ -15,7 +16,6 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {BsDatepickerModule, TimepickerModule, TypeaheadModule} from 'ngx-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NavbarComponent} from './components/navbar/navbar.component';
-import { JourneyComponent } from './components/journey/journey.component';
 
 
 @NgModule({
@@ -24,9 +24,9 @@ import { JourneyComponent } from './components/journey/journey.component';
     StationComponent,
     StationListComponent,
     StationMapComponent,
-    JourneyListComponent,
+    JourneyFormComponent,
     NavbarComponent,
-    JourneyComponent
+    JourneyListComponent
   ],
   imports: [
     BrowserModule,
