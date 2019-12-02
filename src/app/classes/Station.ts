@@ -15,6 +15,7 @@ export class Station {
     city: string;
     zipCode: string;
 
+    code: string;
     type: StationType;
 
 
@@ -33,6 +34,7 @@ export class Station {
         this.lat = +args[`stop_area`][`coord`][`lat`];
         this.lon = +args[`stop_area`][`coord`][`lon`];
 
+        this.code = args[`stop_area`][`codes`][0].value;
         this.setTypeFromCode(args[`stop_area`][`codes`][0].value);
     }
 
