@@ -45,13 +45,15 @@ export class Station {
         this.code = args[`stop_area`][`codes`][0].value;
 
         this.types = new Array<StationType>();
-        args[`stop_area`][`physical_modes`].forEach(element => {
-            const type = Station.getTypeFromString(element.id);
+        if (args[`stop_area`][`physical_modes`] !== undefined) {
+            args[`stop_area`][`physical_modes`].forEach(element => {
+                const type = Station.getTypeFromString(element.id);
 
-            if (!this.types.includes(type)) {
-                this.types.push(type);
-            }
-        });
+                if (!this.types.includes(type)) {
+                    this.types.push(type);
+                }
+            });
+        }
     }
 
     static getTypeFromString(str: string) {
