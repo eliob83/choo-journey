@@ -8,7 +8,6 @@ import {Journey, JourneyDate} from '../../classes/Journey';
 import {SearchOption} from '../../classes/Search';
 
 import {TypeaheadMatch} from 'ngx-bootstrap';
-import Timer = NodeJS.Timer;
 
 
 @Component({
@@ -37,11 +36,8 @@ export class JourneyFormComponent implements OnInit {
   // Today's date for datepicker form component
   today: Date;
 
-  // Args for the search function
-  // journey: [string, string, string] = [this.stationFrom.id, this.stationTo.id, this.dateJourney];
-
   // Id of the setTimeout
-  idWait: Timer;
+  idWait: number;
 
   // Options for the TypeAhead feature
   maxScroll = 10;
@@ -51,6 +47,7 @@ export class JourneyFormComponent implements OnInit {
   // Placeholder for the date input (today)
   placeholderDate: string;
 
+  // Booleans : is there no results in the journey form ?
   noResultTo = false;
   noResultFrom = false;
 
@@ -103,16 +100,6 @@ export class JourneyFormComponent implements OnInit {
     }
   }
 
-  // Checking the values of departure (id), destination (id) and date (string)
-  checkForm(): void {
-    /*if (this.journey[0] !== undefined && this.journey[1] !== undefined && this.journey[2] !== undefined) {
-      this.reformatDate(this.journey[2]);
-      //this.submitJourney(this.journey);
-    } else {
-      console.log('NON');
-    }*/
-  }
-
   // Collecting information from Observables of departure / destination
   getStationId(event: TypeaheadMatch, loc: string): void {
     if (loc === 'from') {
@@ -131,14 +118,7 @@ export class JourneyFormComponent implements OnInit {
     }
   }
 
-  // Formatting date for the request
-  reformatDate(str: string): string {
-    const strTab = str.split('-', 3);
-    return strTab[0] + strTab[1] + strTab[2];
-  }
-
-
-  // If there is no matches in the API
+  // If it doesn't match with the API
   typeaheadNoResults(e: boolean, opt: SearchOption) {
     if (opt === SearchOption.TO_INPUT) {
       this.noResultTo = e;

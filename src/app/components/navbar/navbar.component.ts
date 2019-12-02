@@ -18,6 +18,7 @@ export class NavbarComponent {
   constructor(private httpClient: HttpClient) {
   }
 
+  // Search a random dog image
   setDog() {
     this.httpClient.get('https://random.dog/woof.json').subscribe(data => {
       const url: string = data[`url`];

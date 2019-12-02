@@ -1,35 +1,75 @@
+<!-- Single result from list -->
 <div class="card" [attr.data-index]="station.code">
-    <div class="card-header" [class.list-group-item-primary]="selected" [id]="'heading' + station.code">
-        <h2 class="mb-0">
-            <!-- Correct icon display -->
-            <ng-container [ngSwitch]="station.getMainType()">
-                <ng-container *ngSwitchCase="StationType.AIR" ><fa-icon [icon]="faPlane"></fa-icon></ng-container>
-                <ng-container *ngSwitchCase="StationType.BOAT" ><fa-icon [icon]="faShip"></fa-icon></ng-container>
-                <ng-container *ngSwitchCase="StationType.BUS" ><fa-icon [icon]="faBus"></fa-icon></ng-container>
-                <ng-container *ngSwitchCase="StationType.TRAIN" ><fa-icon [icon]="faTrain"></fa-icon></ng-container>
-                <ng-container *ngSwitchCase="StationType.METRO" ><fa-icon [icon]="faSubway"></fa-icon></ng-container>
-                <ng-container *ngSwitchCase="StationType.TAXI" ><fa-icon [icon]="faTaxi"></fa-icon></ng-container>
-                <ng-container *ngSwitchCase="StationType.FUNICULAR" ><fa-icon [icon]="faQuidditch"></fa-icon></ng-container>
-                
-                <ng-container *ngSwitchDefault><fa-icon [icon]="faQuestion"></fa-icon></ng-container>
-            </ng-container>
-            
-            <button (click)="openStation()" class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + station.code" aria-expanded="false" [attr.aria-controls]="'collapse' + index">
-                {{ station.name }}
-            </button>
-        </h2>
-    </div>
+  <div class="card-header" [class.list-group-item-primary]="selected" [id]="'heading' + station.code">
+    <h2 class="mb-0">
+      <!-- Correct icon display -->
+      <ng-container [ngSwitch]="station.getMainType()">
+        <!-- Air -->
+        <ng-container *ngSwitchCase="StationType.AIR">
+          <fa-icon [icon]="faPlane"></fa-icon>
+        </ng-container>
 
-    <div [id]="'collapse' + station.code" class="collapse" [attr.aria-labelledby]="'heading' + station.code" data-parent="#stationAccordion">
-        <div class="card-body">
-            Station : {{ station.label }} ({{ station.id }})<br /> {{ station.code }}
-            <span *ngIf="station.city !== undefined">{{ station.city }} - </span><span *ngIf="station.zipCode !== undefined">{{ station.zipCode }}</span>
-            
-            <br />
-            <div class="mt-3" role="group" aria-label="Station actions">
-                <button *ngIf="station.lon !== 0 || station.lat !== 0" (click)="seeOnMap()" type="button" class="btn btn-secondary mr-2">Voir sur la carte</button>
-                <button (click)="startJourney()" type="button" class="btn btn-info">Commencer un trajet</button>
-            </div>
-        </div>
+        <!-- Boat -->
+        <ng-container *ngSwitchCase="StationType.BOAT">
+          <fa-icon [icon]="faShip"></fa-icon>
+        </ng-container>
+
+        <!-- Bus -->
+        <ng-container *ngSwitchCase="StationType.BUS">
+          <fa-icon [icon]="faBus"></fa-icon>
+        </ng-container>
+
+        <!-- Train -->
+        <ng-container *ngSwitchCase="StationType.TRAIN">
+          <fa-icon [icon]="faTrain"></fa-icon>
+        </ng-container>
+
+        <!-- Metro -->
+        <ng-container *ngSwitchCase="StationType.METRO">
+          <fa-icon [icon]="faSubway"></fa-icon>
+        </ng-container>
+
+        <!-- Taxi -->
+        <ng-container *ngSwitchCase="StationType.TAXI">
+          <fa-icon [icon]="faTaxi"></fa-icon>
+        </ng-container>
+
+        <!-- Funicular -->
+        <ng-container *ngSwitchCase="StationType.FUNICULAR">
+          <fa-icon [icon]="faQuidditch"></fa-icon>
+        </ng-container>
+
+        <!-- Unknown -->
+        <ng-container *ngSwitchDefault>
+          <fa-icon [icon]="faQuestion"></fa-icon>
+        </ng-container>
+      </ng-container>
+
+      <!-- Submit button (start search)-->
+      <button (click)="openStation()" class="btn btn-link" type="button" data-toggle="collapse"
+              [attr.data-target]="'#collapse' + station.code" aria-expanded="false"
+              [attr.aria-controls]="'collapse' + index">
+        {{ station.name }}
+      </button>
+    </h2>
+  </div>
+
+  <!-- Station details -->
+  <div [id]="'collapse' + station.code" class="collapse" [attr.aria-labelledby]="'heading' + station.code"
+       data-parent="#stationAccordion">
+    <div class="card-body">
+      Station : {{ station.label }} ({{ station.id }})<br/> {{ station.code }}
+      <span *ngIf="station.city !== undefined">{{ station.city }} - </span><span
+      *ngIf="station.zipCode !== undefined">{{ station.zipCode }}</span>
+      <br>
+
+      <!-- Button options for each result -->
+      <div class="mt-3" role="group" aria-label="Station actions">
+        <button *ngIf="station.lon !== 0 || station.lat !== 0" (click)="seeOnMap()" type="button"
+                class="btn btn-secondary mr-2">Voir sur la carte
+        </button>
+        <button (click)="startJourney()" type="button" class="btn btn-info">Commencer un trajet</button>
+      </div>
     </div>
+  </div>
 </div>
