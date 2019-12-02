@@ -16,7 +16,7 @@ import {Station, StationType} from 'src/app/classes/Station';
 export class StationMapComponent implements OnInit {
   stationsMap: L.Map = null;
   markers: Array<any> = [];
-  icons: Icon[][] = [[], [], []];
+  icons: Icon[][] = new Array<Array<Icon>>();
 
 
   constructor(private stationsService: StationService) { }
@@ -27,8 +27,11 @@ export class StationMapComponent implements OnInit {
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'stationsMap'}).addTo(this.stationsMap);
 
     // Icons load
+    this.icons[0] = new Array<Icon>();
     this.icons[0][0] = L.icon({iconUrl: '../assets/map/interrogation.png', iconSize: [50, 50], iconAnchor: [25, 25]});
     for (let t = StationType.TRAIN; t <= StationType.FUNICULAR; t++) {
+      this.icons[t] = new Array<Icon>();
+
       for (let i = 0; i < 9; i++) {
         this.icons[t][i] = L.icon(
           {
