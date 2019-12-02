@@ -45,7 +45,7 @@ export class StationListComponent {
   // Search stationName thanks to API
   searchStations() {
     if (this.stationName !== undefined && this.stationName !== '' && this.stationName !== this.lastStationName) {
-      this.stationService.searchStation(this.stationName, 10, SearchOption.LIST);
+      this.stationService.searchStation(this.stationName, 5, SearchOption.LIST);
 
       this.currentState = SearchState.LOADING;
       this.lastStationName = this.stationName;
