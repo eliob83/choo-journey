@@ -1,9 +1,9 @@
 <nav class="navbar navbar-dark bg-dark">
   <ul class="nav">
-    <span class="nav-item h1 text-light">Bienvenue sur ChooJourney !</span>
+    <li class="nav-item h1 text-light">Bienvenue sur ChooJourney !</li>
   </ul>
-
-  <ul class="nav justify-content-end ml-0">
+  <!--
+    <ul class="nav justify-content-end ml-0">
       <li class="nav-item">
         <a class="nav-link text-white" target="_blank" href="https://github.com/eliob83">Elio BILISARI</a>
       </li>
@@ -15,5 +15,38 @@
       <li class="nav-item">
         <a class="nav-link text-white" target="_blank" href="https://github.com/Nypsyy">Mayeul MARSAUT</a>
       </li>
-  </ul>
+    </ul>
+    -->
+  <button type="button" class="btn btn-light" (click)="infoModal.show()"><img src="../../../assets/icons/info.svg"
+                                                                              alt="Info icon">
+  </button>
 </nav>
+
+<div class="modal fade" bsModal #infoModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="Help information"
+     aria-hidden="true" (onShow)="setDog()">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Angular Project 2019</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li><b>Choo-Journey</b></li>
+          <li>Réalisé par :
+            <ul>
+              <li>Elio Bilizari</li>
+              <li>Guillaume Feltrin</li>
+              <li>Mayeul Marsaut</li>
+            </ul>
+          </li>
+          <li class="dropdown-divider"></li>
+          <li>Version 0.6</li>
+        </ul>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="text-center">
+        <img [src]="dog" alt="Woof" height="400px">
+      </div>
+    </div>
+  </div>
+</div>
