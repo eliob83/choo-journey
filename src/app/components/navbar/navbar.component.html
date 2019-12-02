@@ -2,13 +2,14 @@
   <ul class="nav">
     <li class="nav-item h1 text-light">Bienvenue sur ChooJourney !</li>
   </ul>
-
+  <!-- Buttons that displays the modal -->
   <button type="button" class="btn btn-light" (click)="infoModal.show()">
     <fa-icon [icon]="faInfoCircle"></fa-icon>
   </button>
 </nav>
 
-<div class="modal fade" bsModal #infoModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="Help information"
+<!-- Modal about project information -->
+<div class="modal fade" bsModal #infoModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="Project information"
      aria-hidden="true" (onShow)="setDog()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -17,24 +18,25 @@
       </div>
 
       <div class="modal-body text-center">
-        <strong>Projet Angular</strong><br />
-        novembre 2019<br />
+        <strong>Projet Angular</strong><br/>
+        novembre 2019<br/>
         <i>Version 0.6</i>
 
         <div class="mt-2 w-50 dropdown-divider mx-auto"></div>
 
         <p class="mt-2">
-          Réalisé dans le cadre de la M1 à l'ISEN Toulon<br />
-          <a class="text-primary" target="_blank" href="https://github.com/eliob83">Elio BILISARI</a><br />
-          <a class="text-primary" target="_blank" href="https://github.com/Kerlan">Guillaume FELTRIN</a><br />
+          Réalisé dans le cadre de la M1 à l'ISEN Toulon<br/>
+          <a class="text-primary" target="_blank" href="https://github.com/eliob83">Elio BILISARI</a><br/>
+          <a class="text-primary" target="_blank" href="https://github.com/Kerlan">Guillaume FELTRIN</a><br/>
           <a class="text-primary" target="_blank" href="https://github.com/Nypsyy">Mayeul MARSAUT</a>
         </p>
 
         <div class="mt-2 w-25 dropdown-divider mx-auto"></div>
       </div>
 
+      <!-- Random dog img -->
       <div class="my-2 text-center">
-        <img [src]="dog" alt="Woof" height="200px">
+        <img [src]="dog" alt="Woof" height="250px">
       </div>
     </div>
   </div>

@@ -2,13 +2,15 @@
 <div id="journeyForm" class="jumbotron-fluid">
   <div class="card-header row align-items-start">
     <h2 class="col">Chercher un itinéraire</h2>
-    <button type="button" class="btn btn-info col-1" (click)="staticModal.show()">Aide</button>
+    <!-- Button that displays the modal -->
+    <button type="button" class="btn btn-info col-1" (click)="helpModal.show()">Aide</button>
   </div>
 
   <form action="#" autocomplete="off" (ngSubmit)="submitJourney()">
     <div class="form-row">
       <div class="form-group col-5">
         <label for="fromJourney"><small>Mise en train <b>*</b></small></label>
+        <!-- FROM input -->
         <input type="search" name="fromJourney" id="fromJourney"
                class="form-control form-control-lg"
                [class.is-invalid]="noResultFrom"
@@ -24,19 +26,17 @@
                required/>
       </div>
 
+      <!-- DATE input -->
       <div class="form-group offset-1">
         <label for="dateTimeJourney"><small>Date du voyage <b>*</b></small></label>
         <input type="text" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
                [placeholder]="placeholderDate"
                [(ngModel)]="dateJourney" bsDatepicker [bsValue]="today" [minDate]="today"
                [bsConfig]="{dateInputFormat: 'YYYY-MM-DD', isAnimated: true, adaptivePosition: true, containerClass: 'theme-blue'}">
-        <!--
-        <input type="date" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
-               placeholder="jj/MM/yyyy" [(ngModel)]="dateJourney">
-               -->
       </div>
     </div>
 
+    <!-- TO input -->
     <div class="form-row">
       <div class="form-group col-5">
         <label for="toJourney"><small>Destination <b>*</b></small></label>
@@ -55,6 +55,7 @@
                required/>
       </div>
 
+      <!-- TIME input -->
       <div class="form-group offset-1">
         <label for="timeJourney"><small>Heure du voyage</small></label>
         <timepicker id="timeJourney" [showMeridian]="false" [showSpinners]="false" [showSeconds]="true">
@@ -62,10 +63,12 @@
       </div>
     </div>
 
+    <!-- SUBMIT input -->
     <button type="submit" class="btn btn-outline-primary btn-lg">Rechercher</button>
   </form>
 </div>
 
+<!-- Journey list -->
 <div>
   <ul>
     <li *ngFor="let journey of journeys">
@@ -76,7 +79,8 @@
   </ul>
 </div>
 
-<div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="Form information"
+<!-- Help modal about the journey form -->
+<div class="modal fade" bsModal #helpModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="Help form"
      aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

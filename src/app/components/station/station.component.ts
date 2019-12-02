@@ -4,8 +4,17 @@ import {StationService} from 'src/app/services/station/station.service';
 
 import {Station, StationType} from '../../classes/Station';
 
-import {faQuestion, faPlane, faShip, faBus, faTrain,
-  faSubway, faTaxi, faQuidditch, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBus,
+  faPlane,
+  faQuestion,
+  faQuidditch,
+  faShip,
+  faSubway,
+  faTaxi,
+  faTrain,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -37,7 +46,8 @@ export class StationComponent {
   stationIcon: IconDefinition;
 
 
-  constructor(private stationService: StationService) { }
+  constructor(private stationService: StationService) {
+  }
 
   // Focus pinpoint on map
   seeOnMap() {

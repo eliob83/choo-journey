@@ -14,6 +14,7 @@ export class JourneyDate {
     this.minute = formated[`minute`];
     this.second = formated[`second`];
   }
+
   day: number;
   month: number;
   year: number;
@@ -24,7 +25,7 @@ export class JourneyDate {
 
 
   static formatDate(date: string) {
-    const args = { };
+    const args = {};
 
     let splited = date.split('T')[0].split('-', 3);
     if (splited.length >= 3) {
