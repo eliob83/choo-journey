@@ -64,7 +64,7 @@
 <div>
   <ul>
     <li *ngFor="let journey of journeys">
-      {{ journey.from.name }} -> {{ journey.to.name }} ({{ journey.dateTime.toString }})
+      {{ journey.from.name }} -> {{ journey.to.name }} @ {{ journey.dateTime }}
       <br />
       {{ journey.firstTransportation }} -> {{ journey.lastTransportation }}
     </li>

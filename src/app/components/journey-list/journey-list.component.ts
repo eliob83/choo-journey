@@ -5,7 +5,7 @@ import {JourneyService} from '../../services/journey/journey.service';
 
 import {Station} from '../../classes/Station';
 import {Journey, JourneyDate} from '../../classes/Journey';
-import {SearchOption as SearchOption} from '../../classes/Search';
+import {SearchOption} from '../../classes/Search';
 
 import {TypeaheadMatch} from 'ngx-bootstrap';
 
@@ -16,6 +16,7 @@ import {TypeaheadMatch} from 'ngx-bootstrap';
   styleUrls: ['./journey-list.component.css']
 })
 export class JourneyListComponent implements OnInit {
+  SearchOption = SearchOption;
 
   // Tab where keys are stored. The request will not be sent if one of those keys is pressed.
   private readonly keyExceptions: string[] = [' ', 'Shift', 'Control', 'Alt',
@@ -111,7 +112,7 @@ export class JourneyListComponent implements OnInit {
   // Calls service to search journeys
   submitJourney(): void {
     if (this.stationFrom !== undefined && this.stationTo !== undefined && this.dateJourney !== undefined) {
-      this.journeyService.searchJourney(this.stationFrom.id, this.stationTo.id, this.formatDate(this.dateJourney).getYMD(), 10);
+      this.journeyService.searchJourney(this.stationFrom.id, this.stationTo.id, (new JourneyDate(this.dateJourney.toJSON())).getYMD(), 10);
     }
   }
 
@@ -129,21 +130,5 @@ export class JourneyListComponent implements OnInit {
     if (opt === SearchOption.FROM_INPUT) {
       this.noResultFrom = e;
     }
-  }
-
-  formatDate(date: Date) {
-    const args = { };
-
-    let splited = date.toJSON().split('T')[0].split('-', 3);
-    args[`day`] = splited[2];
-    args[`month`] = splited[1];
-    args[`year`] = splited[0];
-
-    splited = date.toJSON().split('T')[1].split(':');
-    args[`hour`] = splited[0];
-    args[`minute`] = splited[1];
-    args[`second`] = splited[2].substr(0, 2);
-
-    return new JourneyDate(args);
   }
 }
