@@ -4,7 +4,6 @@ import {StationService} from '../../services/station/station.service';
 
 import {Station} from '../../classes/Station';
 import {SearchOption, SearchState} from '../../classes/Search';
-import { $ } from 'protractor';
 
 
 @Component({

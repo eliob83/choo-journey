@@ -2,9 +2,14 @@
     <div class="card-header" [class.list-group-item-primary]="selected" [id]="'heading' + station.code">
         <h2 class="mb-0">
             <!-- Correct icon display -->
-            <ng-container [ngSwitch]="station.type">
-                <ng-container *ngSwitchCase="StationType.TRAIN_STATION" ><fa-icon [icon]="faTrain"></fa-icon></ng-container>
-                <ng-container *ngSwitchCase="StationType.BUS_STATION" ><fa-icon [icon]="faBus"></fa-icon></ng-container>
+            <ng-container [ngSwitch]="station.getMainType()">
+                <ng-container *ngSwitchCase="StationType.AIR" ><fa-icon [icon]="faPlane"></fa-icon></ng-container>
+                <ng-container *ngSwitchCase="StationType.BOAT" ><fa-icon [icon]="faShip"></fa-icon></ng-container>
+                <ng-container *ngSwitchCase="StationType.BUS" ><fa-icon [icon]="faBus"></fa-icon></ng-container>
+                <ng-container *ngSwitchCase="StationType.TRAIN" ><fa-icon [icon]="faTrain"></fa-icon></ng-container>
+                <ng-container *ngSwitchCase="StationType.METRO" ><fa-icon [icon]="faSubway"></fa-icon></ng-container>
+                <ng-container *ngSwitchCase="StationType.TAXI" ><fa-icon [icon]="faTaxi"></fa-icon></ng-container>
+                <ng-container *ngSwitchCase="StationType.FUNICULAR" ><fa-icon [icon]="faQuidditch"></fa-icon></ng-container>
                 
                 <ng-container *ngSwitchDefault><fa-icon [icon]="faQuestion"></fa-icon></ng-container>
             </ng-container>

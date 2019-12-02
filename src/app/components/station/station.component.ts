@@ -4,7 +4,8 @@ import {StationService} from 'src/app/services/station/station.service';
 
 import {Station, StationType} from '../../classes/Station';
 
-import {faBus, faQuestion, faTrain} from '@fortawesome/free-solid-svg-icons';
+import {faQuestion, faPlane, faShip, faBus, faTrain,
+  faSubway, faTaxi, faQuidditch, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -13,12 +14,16 @@ import {faBus, faQuestion, faTrain} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./station.component.css']
 })
 export class StationComponent {
-  // Icons
-  faTrain = faTrain;
-  faBus = faBus;
+  // References
   faQuestion = faQuestion;
+  faPlane = faPlane;
+  faShip = faShip;
+  faBus = faBus;
+  faTrain = faTrain;
+  faSubway = faSubway;
+  faTaxi = faTaxi;
+  faQuidditch = faQuidditch;
 
-  // Enums
   StationType = StationType;
 
 
@@ -27,6 +32,9 @@ export class StationComponent {
   @Input() selected: boolean;
 
   @Output() openEvent = new EventEmitter<any>();
+
+
+  stationIcon: IconDefinition;
 
 
   constructor(private stationService: StationService) { }
@@ -49,5 +57,7 @@ export class StationComponent {
     } else {
       this.openEvent.emit(this.station);
     }
+
+    console.log(this.station.getIconMainType());
   }
 }

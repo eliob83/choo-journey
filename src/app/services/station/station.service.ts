@@ -24,7 +24,7 @@ export class StationService extends ApiService {
 
   // API search like stationName
   loadStationsLike(stationName: string, count: number): Observable<any> {
-    return this.apiCall(this.endpoint + 'coverage/sncf/places?q=' + stationName + '&count=' + count + '&type%5B%5D=stop_area');
+    return this.apiCall(this.endpoint + 'coverage/sncf/places?q=' + stationName + '&count=' + count + '&type%5B%5D=stop_area&depth=3');
     /*.subscribe(
       () => { console.log('Terminé !'); },
       (error) => { console.error('Erreur httpClient : ' + error); }
@@ -62,6 +62,7 @@ export class StationService extends ApiService {
 
   // Stations list search
   searchStation(stationName: string, count: number, opt: SearchOption): void {
-    this.loadStationsLike(stationName, count).subscribe((data: {}) => this.subscribeData(data, opt));
+    this.loadStationsLike(stationName, count)
+        .subscribe((data: {}) => this.subscribeData(data, opt));
   }
 }

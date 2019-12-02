@@ -28,11 +28,11 @@ export class StationMapComponent implements OnInit {
 
     // Icons load
     this.icons[0][0] = L.icon({iconUrl: '../assets/map/interrogation.png', iconSize: [50, 50], iconAnchor: [25, 25]});
-    for (let t = StationType.TRAIN_STATION; t <= StationType.BUS_STATION; t++) {
+    for (let t = StationType.TRAIN; t <= StationType.FUNICULAR; t++) {
       for (let i = 0; i < 9; i++) {
         this.icons[t][i] = L.icon(
           {
-            iconUrl: '../assets/map/' + (t === StationType.TRAIN_STATION ? 'train-icons/train' : 'bus-icons/bus') + i + '.png',
+            iconUrl: '../assets/map/' + (t === StationType.TRAIN ? 'train-icons/train' : 'bus-icons/bus') + i + '.png',
             iconSize: [50, 50], iconAnchor: [25, 25]
           }
         );
@@ -61,12 +61,13 @@ export class StationMapComponent implements OnInit {
 
     // For each station of the list
     data.forEach(station => {
+      console.log(station);
       // Non-zero coords (unknown)
       if (station.lat !== 0 || station.lon !== 0) {
         this.markers.push(L.marker(
           [station.lat, station.lon],
           // Random station type icon
-          {icon: this.icons[station.type][Math.floor(Math.random() * this.icons[station.type].length)]}
+          {icon: this.icons[station.getMainType()][Math.floor(Math.random() * this.icons[station.getMainType()].length)]}
           ).bindPopup(station.label).addTo(this.stationsMap).on('click', e => {
             // Marker click push it on map observable
             this.stationsService.mapSubjects.next(station);
