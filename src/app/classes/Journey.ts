@@ -1,5 +1,8 @@
 import {Station} from './Station';
 
+export enum JourneyType {
+  UNDEFINED, ECOLOGICAL, FASTER
+}
 
 export class JourneyDate {
 
