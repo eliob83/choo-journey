@@ -29,7 +29,8 @@
       <!-- DATE input -->
       <div class="form-group offset-1">
         <label for="dateTimeJourney"><small>Date du voyage <b>*</b></small></label>
-        <input type="text" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
+        <input type="text" class="form-control form-control-lg " name="dateTimeJourney"
+               id="dateTimeJourney"
                [placeholder]="placeholderDate"
                [(ngModel)]="dateJourney" bsDatepicker [bsValue]="today" [minDate]="today"
                [bsConfig]="{dateInputFormat: 'YYYY-MM-DD', isAnimated: true, adaptivePosition: true, containerClass: 'theme-blue'}">
@@ -64,7 +65,7 @@
     </div>
 
     <!-- SUBMIT input -->
-    <button type="submit" class="btn btn-outline-primary btn-lg">Rechercher</button>
+    <button type="submit" class="btn btn-secondary btn-lg">Rechercher</button>
   </form>
 </div>
 

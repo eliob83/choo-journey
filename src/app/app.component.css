@@ -1,0 +1,20 @@
+#railWay {
+  position: fixed;
+  z-index: -1;
+  bottom: 10px;
+}
+
+#railWayImg {
+  width: 100%;
+}
+
+#locomotive {
+  position: fixed;
+  z-index: -1;
+  bottom: 36px;
+  left: 0;
+}
+
+#locomotiveImg {
+  width: 80px;
+}

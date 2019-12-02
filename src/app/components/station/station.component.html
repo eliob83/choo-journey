@@ -46,7 +46,7 @@
       </ng-container>
 
       <!-- Submit button (start search)-->
-      <button (click)="openStation()" class="btn btn-link" type="button" data-toggle="collapse"
+      <button (click)="openStation()" class="btn btn-lg btn-outline-primary offset-1" type="button" data-toggle="collapse"
               [attr.data-target]="'#collapse' + station.code" aria-expanded="false"
               [attr.aria-controls]="'collapse' + index">
         {{ station.name }}
