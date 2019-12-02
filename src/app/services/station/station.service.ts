@@ -15,7 +15,6 @@ export class StationService extends ApiService {
   public listSearchObservable = new BehaviorSubject<Array<Station>>([]);
   // Map pinpoint update observable
   public mapSubjects = new BehaviorSubject<Station>(null);
-
   // Journey search 'from' input observable
   public fromSearchObservable = new BehaviorSubject<Array<Station>>([]);
   // Journey search 'to' input observable

@@ -8,6 +8,7 @@ import {Journey, JourneyDate} from '../../classes/Journey';
 import {SearchOption} from '../../classes/Search';
 
 import {TypeaheadMatch} from 'ngx-bootstrap';
+import Timer = NodeJS.Timer;
 
 
 @Component({
@@ -16,7 +17,8 @@ import {TypeaheadMatch} from 'ngx-bootstrap';
   styleUrls: ['./journey-form.component.css']
 })
 export class JourneyFormComponent implements OnInit {
-  SearchOption = SearchOption;
+  // Options for the observables
+  searchOption = SearchOption;
 
   // Tab where keys are stored. The request will not be sent if one of those keys is pressed.
   private readonly keyExceptions: string[] = [' ', 'Shift', 'Control', 'Alt',
@@ -31,13 +33,15 @@ export class JourneyFormComponent implements OnInit {
   stationFrom: Station = new Station(null); // Departure
   stationTo: Station = new Station(null); // Destination
   dateJourney: Date; // Date
+
+  // Today's date for datepicker form component
   today: Date;
 
   // Args for the search function
   // journey: [string, string, string] = [this.stationFrom.id, this.stationTo.id, this.dateJourney];
 
   // Id of the setTimeout
-  idWait = 0;
+  idWait: Timer;
 
   // Options for the TypeAhead feature
   maxScroll = 10;
@@ -65,30 +69,38 @@ export class JourneyFormComponent implements OnInit {
   }
 
   // Checking the key pressed with the keyExceptions tab
-  checkKey(event) {
+  checkKey(event): boolean {
     this.keyExceptions.forEach(k => {
       if (event.key === k) {
         console.log('Handled');
-        return;
+        return true;
       }
     });
+
+    return false;
   }
 
   // Initialize the request with delay
   startSearchDelayed(key, str: string, opt: SearchOption): void {
-    this.checkKey(key);
-    this.idWait = setTimeout(() => {
-      this.stationService.searchStation(str, 20, opt);
-    }, 400);
-    console.log(this.stationFrom);
+    if (this.checkKey(key) === true) { // If not a normal character
+      return;
+    } else {
+      this.idWait = setTimeout(() => {
+        this.stationService.searchStation(str, 20, opt);
+      }, 400);
+      console.log(this.stationFrom);
+    }
   }
 
   // Cancel the delay (also the request)
   stopSearchDelay(event): void {
-    this.checkKey(event);
-    console.log('Annulation du timeout ' + this.idWait);
-    console.log(this.stationFrom.id);
-    clearTimeout(this.idWait);
+    if (this.checkKey(event) === true) { // If not a normal character
+      return;
+    } else {
+      console.log('Annulation du timeout ' + this.idWait);
+      console.log(this.stationFrom.id);
+      clearTimeout(this.idWait);
+    }
   }
 
   // Checking the values of departure (id), destination (id) and date (string)
@@ -126,6 +138,7 @@ export class JourneyFormComponent implements OnInit {
   }
 
 
+  // If there is no matches in the API
   typeaheadNoResults(e: boolean, opt: SearchOption) {
     if (opt === SearchOption.TO_INPUT) {
       this.noResultTo = e;

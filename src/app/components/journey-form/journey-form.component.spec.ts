@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {JourneyFormComponent} from './journey-form.component';
 
-describe('JourneyListComponent', () => {
+describe('JourneyFormComponent', () => {
   let component: JourneyFormComponent;
   let fixture: ComponentFixture<JourneyFormComponent>;
 
