@@ -17,6 +17,7 @@ import {BsDatepickerModule, TimepickerModule, TypeaheadModule} from 'ngx-bootstr
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {JourneyComponent} from './components/journey/journey.component';
+import {ParallaxDirective} from './directives/parallax.directive';
 
 
 @NgModule({
@@ -27,8 +28,9 @@ import {JourneyComponent} from './components/journey/journey.component';
     StationMapComponent,
     JourneyFormComponent,
     NavbarComponent,
-    JourneyListComponent,
     JourneyComponent
+    JourneyListComponent,
+    ParallaxDirective
   ],
   imports: [
     BrowserModule,
