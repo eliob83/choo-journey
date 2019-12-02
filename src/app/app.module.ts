@@ -15,6 +15,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {BsDatepickerModule, TimepickerModule, TypeaheadModule} from 'ngx-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NavbarComponent} from './components/navbar/navbar.component';
+import { JourneyComponent } from './journey/journey.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {NavbarComponent} from './components/navbar/navbar.component';
     StationListComponent,
     StationMapComponent,
     JourneyListComponent,
-    NavbarComponent
+    NavbarComponent,
+    JourneyComponent
   ],
   imports: [
     BrowserModule,
