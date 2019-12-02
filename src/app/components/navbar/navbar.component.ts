@@ -1,12 +1,18 @@
 import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  // References
+  faInfoCircle = faInfoCircle;
+
   dog = '';
 
   constructor(private httpClient: HttpClient) {
