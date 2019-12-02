@@ -4,6 +4,7 @@ import {StationService} from '../../services/station/station.service';
 
 import {Station} from '../../classes/Station';
 import {SearchOption, SearchState} from '../../classes/Search';
+import { $ } from 'protractor';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class StationListComponent {
 
     // Map update observable
     stationService.mapSubjects.subscribe(data => {
-      this.selectedStation = data;
+      this.openStation(data);
     });
 
     this.currentState = SearchState.UNDEFINED;
@@ -55,5 +56,8 @@ export class StationListComponent {
   // Set station as selected
   openStation(station: Station) {
     this.selectedStation = station;
+    if (station !== null && station !== undefined) {
+      Function('"use strict";$(\'#collapse' + station.code + '\').collapse(\'show\')').call(null);
+    }
   }
 }

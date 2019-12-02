@@ -1,5 +1,5 @@
-<div class="card" [attr.data-index]="index">
-    <div class="card-header" [class.list-group-item-primary]="selected" [id]="'heading' + index">
+<div class="card" [attr.data-index]="station.code">
+    <div class="card-header" [class.list-group-item-primary]="selected" [id]="'heading' + station.code">
         <h2 class="mb-0">
             <!-- Correct icon display -->
             <ng-container [ngSwitch]="station.type">
@@ -9,15 +9,15 @@
                 <ng-container *ngSwitchDefault><fa-icon [icon]="faQuestion"></fa-icon></ng-container>
             </ng-container>
             
-            <button (click)="openStation()" class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + index" aria-expanded="false" [attr.aria-controls]="'collapse' + index">
+            <button (click)="openStation()" class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + station.code" aria-expanded="false" [attr.aria-controls]="'collapse' + index">
                 {{ station.name }}
             </button>
         </h2>
     </div>
 
-    <div [id]="'collapse' + index" class="collapse" [attr.aria-labelledby]="'heading' + index" data-parent="#stationAccordion">
+    <div [id]="'collapse' + station.code" class="collapse" [attr.aria-labelledby]="'heading' + station.code" data-parent="#stationAccordion">
         <div class="card-body">
-            Station : {{ station.label }} ({{ station.id }})<br />
+            Station : {{ station.label }} ({{ station.id }})<br /> {{ station.code }}
             <span *ngIf="station.city !== undefined">{{ station.city }} - </span><span *ngIf="station.zipCode !== undefined">{{ station.zipCode }}</span>
             
             <br />
