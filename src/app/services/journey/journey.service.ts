@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 
 import {ApiService} from '../api.service';
 // Classes
-import {Journey} from '../../classes/Journey';
+import {Journey, JourneyList} from '../../classes/Journey';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import {Journey} from '../../classes/Journey';
 })
 export class JourneyService extends ApiService {
   // Journey results observable
-  public journeySubjects = new BehaviorSubject<Array<Journey>>([]);
+  public journeySubjects = new BehaviorSubject<JourneyList>(null);
 
 
   // API search like Journey
@@ -22,15 +22,7 @@ export class JourneyService extends ApiService {
 
   // Subscribing data to Observer
   subscribeData(data: {}): void {
-    const journeys = [];
-
-    if (data[`journeys`] !== undefined && data[`journeys`].length) {
-      data[`journeys`].forEach(element => {
-        journeys.push(new Journey(element));
-      });
-    }
-
-    this.journeySubjects.next(journeys);
+    this.journeySubjects.next(new JourneyList(data));
   }
 
   // Journeys list search

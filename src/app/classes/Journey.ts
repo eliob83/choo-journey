@@ -2,7 +2,12 @@ import {Station} from './Station';
 
 // Classification for each type of journeys
 export enum JourneyType {
-  UNDEFINED, ECOLOGICAL, FASTER
+  UNDEFINED, FASTEST, COMFORT, RAPID, BEST
+}
+
+export enum JourneyStatus {
+  UNDEFINED, NO_SERVICE, REDUCED_SERVICE, SIGNIFICANT_DELAYS, DETOUR, ADDITIONAL_SERVICE,
+  MODIFIED_SERVICE, OTHER_EFFECT, UNKNOWN_EFFECT, STOP_MOVED
 }
 
 // Class for the date picker
@@ -79,20 +84,84 @@ export class JourneyDate {
   }
 }
 
+export class JourneySection {
+
+}
+
 // Main class journey
 export class Journey {
+  duration: number;
+  nbTransfers: number;
+
+  departureDateTime: JourneyDate;
+  arrivalDateTime: JourneyDate;
+
+  sections: JourneySection[];
+
   from: Station;
   to: Station;
-  dateTime: JourneyDate;
 
-  firstTransportation: string;
-  lastTransportation: string;
+  co2: number;
+  fare: number;
+
+  type: JourneyType;
+  status: JourneyStatus;
 
 
   constructor(args: Array<any>) {
-    console.log(args);
-    this.from = new Station(args[`sections`][0][`from`]);
-    this.to = new Station(args[`sections`][args[`sections`].length - 1][`to`]);
-    this.dateTime = new JourneyDate(args[`sections`][args[`sections`].length - 1][`arrival_date_time`]);
+    this.duration = args[`duration`];
+    this.nbTransfers = args[`nb_transfers`];
+
+    this.departureDateTime = new JourneyDate(args[`departure_date_time`]);
+    this.arrivalDateTime = new JourneyDate(args[`arrival_date_time`]);
+
+    this.setSectionsFromArray(args[`sections`]);
+
+    this.from = new Station(args[`from`]);
+    this.to = new Station(args[`to`]);
+
+    this.co2 = args[`co2_emission`][`value`];
+    this.fare = (args[`fare`][`found`] ? args[`fare`][`total`] : -1);
+
+    this.type = args[`type`];
+    this.status = args[`status`];
+    console.log(this);
+  }
+
+  setSectionsFromArray(args: Array<any>) {
+    this.sections = new Array<JourneySection>();
+
+    args.forEach(data => {
+      /*if ((data[`from`][`embedded_type`] === 'stop_area' && data[`to`][`embedded_type`] === 'stop_point')) {
+        if (data[`from`][`id`] === data[`to`][`stop_point`][`stop_area`][`id`]) {
+          return;
+        }
+      } else if ((data[`to`][`embedded_type`] === 'stop_area' && data[`from`][`embedded_type`] === 'stop_point')) {
+        if (data[`to`][`id`] === data[`from`][`stop_point`][`stop_area`][`id`]) {
+          return;
+        }
+      }*/
+      if (data[`duration`] === 0) {
+        return;
+      }
+
+      this.sections.push(new JourneySection());
+    });
+  }
+}
+
+export class JourneyList {
+  carAltCO2: number;
+  journeys: Array<Journey>;
+
+  constructor(args: {}) {
+    this.journeys = new Array<Journey>();
+    this.carAltCO2 = args[`context`][`car_direct_path`][`co2_emission`][`value`];
+
+    if (args[`journeys`] !== undefined && args[`journeys`].length) {
+      args[`journeys`].forEach(element => {
+        this.journeys.push(new Journey(element));
+      });
+    }
   }
 }

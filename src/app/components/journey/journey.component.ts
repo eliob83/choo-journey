@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-import {Journey} from 'src/app/classes/Journey';
+import {Journey, JourneyType} from 'src/app/classes/Journey';
 
 import {faBus, faSubway, faTrain} from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +15,7 @@ export class JourneyComponent {
   faTrain = faTrain;
   faBus = faBus;
   faSubway = faSubway;
+  JourneyType = JourneyType;
 
   @Input() journey: Journey;
 

@@ -59,7 +59,11 @@ export class JourneyFormComponent implements OnInit {
     // Journeys update observable
     journeyService.journeySubjects.subscribe(data => {
       this.currentState = SearchState.COMPLETED;
-      this.journeys = data;
+      if (data !== undefined && data !== null) {
+        this.journeys = data.journeys;
+      } else {
+        this.journeys = new Array<Journey>();
+      }
     });
   }
 
@@ -117,7 +121,9 @@ export class JourneyFormComponent implements OnInit {
 
   // Calls service to search journeys
   submitJourney(): void {
+    console.log('oups');
     if (this.stationFrom !== undefined && this.stationTo !== undefined && this.dateJourney !== undefined) {
+      console.log('yessai');
       this.currentState = SearchState.LOADING;
       this.journeyService.searchJourney(this.stationFrom.id, this.stationTo.id, (new JourneyDate(this.dateJourney.toJSON())).getYMD(), 10);
     }

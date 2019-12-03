@@ -12,8 +12,9 @@ export class JourneyListComponent {
 
   constructor(private journeyService: JourneyService) {
     this.journeyService.journeySubjects.subscribe(data => {
-      this.journeys = data;
+      if (data !== null && data !== undefined) {
+        this.journeys = data.journeys;
+      }
     });
   }
-
 }

@@ -27,7 +27,7 @@ export class Station {
 
 
     constructor(args: Array<any>) {
-        if (args === null) {
+        if (args === null || args === undefined) {
             return;
         }
         console.log(args);
