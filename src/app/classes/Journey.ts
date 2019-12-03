@@ -1,9 +1,11 @@
 import {Station} from './Station';
 
+// Classification for each type of journeys
 export enum JourneyType {
   UNDEFINED, ECOLOGICAL, FASTER
 }
 
+// Class for the date picker
 export class JourneyDate {
 
   constructor(args: string) {
@@ -30,6 +32,7 @@ export class JourneyDate {
   static formatDate(date: string) {
     const args = {};
 
+    // Splits date string
     let splited = date.split('T')[0].split('-', 3);
     if (splited.length >= 3) {
       args[`day`] = splited[2];
@@ -55,23 +58,28 @@ export class JourneyDate {
     return args;
   }
 
+  // Date format 2019-11-01
   getYMD() {
     return this.year + '-' + this.month + '-' + this.day;
   }
 
+  // Date format 01-11-2019
   getDMY() {
     return this.day + '-' + this.month + '-' + this.year;
   }
 
+  // Date time
   getTime() {
     return this.hour + ':' + this.minute + ':' + this.second;
   }
 
+  // Stringify
   toString() {
     return this.getYMD() + ' ' + this.getTime();
   }
 }
 
+// Main class journey
 export class Journey {
   from: Station;
   to: Station;

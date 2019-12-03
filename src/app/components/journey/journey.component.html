@@ -1,32 +1,22 @@
-<div
-    [class.border-success]="journey.type===JourneyType.ECOLOGICAL"
-    [class.border-primary]="journey.type===JourneyType.FASTER"
-    class="card"
->
+<div [class.border-success]="journey.type === JourneyType.ECOLOGICAL"
+     [class.border-primary]="journey.type === JourneyType.FASTER" class="card">
 
-    <div
-        [class.border-success]="journey.type===JourneyType.ECOLOGICAL"
-        [class.border-primary]="journey.type===JourneyType.FASTER"
-        class="card-header bg-transparent"
-    >
-        <fa-icon [icon]="faTrain"></fa-icon>
-        <fa-icon [icon]="faBus"></fa-icon>
-        <fa-icon [icon]="faSubway"></fa-icon>
-    </div>
+  <div [class.border-success]="journey.type === JourneyType.ECOLOGICAL"
+       [class.border-primary]="journey.type === JourneyType.FASTER" class="card-header bg-transparent">
+    <fa-icon [icon]="faTrain"></fa-icon>
+    <fa-icon [icon]="faBus"></fa-icon>
+    <fa-icon [icon]="faSubway"></fa-icon>
+  </div>
 
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
 
-        <p class="card-text">
-            This is the text yes.
-        </p>
-    </div>
+    <p class="card-text">
+      This is the text yes.
+    </p>
+  </div>
 
-    <div
-        [class.border-success]="journey.type===JourneyType.ECOLOGICAL"
-        [class.border-primary]="journey.type===JourneyType.FASTER"
-        class="card-footer bg-transparent"
-    >
-        Footer
-    </div>
+  <div [class.border-success]="journey.type === JourneyType.ECOLOGICAL"
+       [class.border-primary]="journey.type === JourneyType.FASTER" class="card-footer bg-transparent">Footer
+  </div>
 </div>

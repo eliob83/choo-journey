@@ -6,21 +6,18 @@
       <label for="fromJourney"><small>Mise en train <b>*</b></small></label>
       <!-- FROM input -->
       <input type="search" name="fromJourney" id="fromJourney"
-              class="form-control form-control-lg"
-              [class.is-invalid]="noResultFrom"
-              placeholder="Toulon" [(ngModel)]="stationFrom.name"
-              (keydown)="stopSearchDelay($event)"
-              (keyup)="startSearchDelayed($event, stationFrom.name, searchOption.FROM_INPUT)"
-              [typeahead]="stationService.fromSearchObservable" [typeaheadScrollable]="true"
-              [typeaheadOptionsInScrollableView]="maxScroll"
-              (typeaheadOnSelect)="getStationId($event, 'from')"
-              (typeaheadNoResults)="typeaheadNoResults($event, searchOption.FROM_INPUT)"
-              typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
-              pattern="[A-Z|a-z]"
-              required />
-    </div>
-
-              [placeholder]="placeholderDate"
+             class="form-control form-control-lg"
+             [class.is-invalid]="noResultFrom"
+             placeholder="Toulon" [(ngModel)]="stationFrom.name"
+             (keydown)="stopSearchDelay($event)"
+             (keyup)="startSearchDelayed($event, stationFrom.name, searchOption.FROM_INPUT)"
+             [typeahead]="stationService.fromSearchObservable" [typeaheadScrollable]="true"
+             [typeaheadOptionsInScrollableView]="maxScroll"
+             (typeaheadOnSelect)="getStationId($event, 'from')"
+             (typeaheadNoResults)="typeaheadNoResults($event, searchOption.FROM_INPUT)"
+             typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
+             pattern="[A-Z|a-z]"
+             required/>
     </div>
   </div>
 
@@ -29,18 +26,18 @@
     <div class="form-group offset-1 col-6">
       <label for="toJourney"><small>Destination <b>*</b></small></label>
       <input type="search" name="toJourney" id="toJourney"
-              class="form-control form-control-lg"
-              [class.is-invalid]="noResultTo"
-              placeholder="Seignosse" [(ngModel)]="stationTo.name"
-              (keydown)="stopSearchDelay($event)"
-              (keyup)="startSearchDelayed($event, stationTo.name, searchOption.TO_INPUT)"
-              [typeahead]="stationService.toSearchObservable" [typeaheadScrollable]="true"
-              [typeaheadOptionsInScrollableView]="maxScroll"
-              (typeaheadOnSelect)="getStationId($event, 'to')"
-              (typeaheadNoResults)="typeaheadNoResults($event, searchOption.TO_INPUT)"
-              typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
-              ngModel pattern="[A-Za-z]*"
-              required/>
+             class="form-control form-control-lg"
+             [class.is-invalid]="noResultTo"
+             placeholder="Seignosse" [(ngModel)]="stationTo.name"
+             (keydown)="stopSearchDelay($event)"
+             (keyup)="startSearchDelayed($event, stationTo.name, searchOption.TO_INPUT)"
+             [typeahead]="stationService.toSearchObservable" [typeaheadScrollable]="true"
+             [typeaheadOptionsInScrollableView]="maxScroll"
+             (typeaheadOnSelect)="getStationId($event, 'to')"
+             (typeaheadNoResults)="typeaheadNoResults($event, searchOption.TO_INPUT)"
+             typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
+             ngModel pattern="[A-Za-z]*"
+             required/>
     </div>
 
     <!-- TIME input -->
@@ -54,14 +51,13 @@
 
   <div class="text-center">
     <!-- SUBMIT input -->
-        <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
+    <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
 
-        <ng-container *ngIf="currentState==SearchState.LOADING">
-            <span class="mb-1 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            <span class="ml-2">Recherche...</span>
-        </ng-container>
-    </button>
-    
+    <ng-container *ngIf="currentState==SearchState.LOADING">
+      <span class="mb-1 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="ml-2">Recherche...</span>
+    </ng-container>
+
     <!-- Button that displays the modal -->
     <button type="button" class="ml-2 btn btn-outline-info btn-lg" (click)="helpModal.show()">Aide</button>
   </div>
@@ -69,33 +65,33 @@
 
 <!-- Journey list -->
 <div>
-<ul>
-  <li *ngFor="let journey of journeys">
-    {{ journey.from.name }} -> {{ journey.to.name }} @ {{ journey.dateTime }}
-    <br>
-    {{ journey.firstTransportation }} -> {{ journey.lastTransportation }}
-  </li>
-</ul>
+  <ul>
+    <li *ngFor="let journey of journeys">
+      {{ journey.from.name }} -> {{ journey.to.name }} @ {{ journey.dateTime }}
+      <br>
+      {{ journey.firstTransportation }} -> {{ journey.lastTransportation }}
+    </li>
+  </ul>
 </div>
 
 <!-- Help modal about the journey form -->
 <div class="modal fade" bsModal #helpModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="Help form"
-    aria-hidden="true">
-<div class="modal-dialog modal-lg">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Chercher un trajet</h4>
-    </div>
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Chercher un trajet</h4>
+      </div>
 
-    <div class="modal-body text-center">
-      Entrez la ville dont vous souhaitez partir, la ville d'arrivée, et votre date de départ.
-      <br>
-      <i>L'heure est facultative</i>
-    </div>
+      <div class="modal-body text-center">
+        Entrez la ville dont vous souhaitez partir, la ville d'arrivée, et votre date de départ.
+        <br>
+        <i>L'heure est facultative</i>
+      </div>
 
-    <div class="modal-footer">
-      <small><i>Cliquez n'importe où pour fermer</i></small>
+      <div class="modal-footer">
+        <small><i>Cliquez n'importe où pour fermer</i></small>
+      </div>
     </div>
   </div>
-</div>
 </div>

@@ -4,9 +4,11 @@ import {Directive, ElementRef, HostListener, Input} from '@angular/core';
   selector: '[appParallax]'
 })
 export class ParallaxDirective {
+  // Inputs for transition ratio
   @Input() ratioX = 0;
   @Input() ratioY = 1;
 
+  // Initial position
   initialTop = 0;
   initialLeft = 0;
 
@@ -15,6 +17,7 @@ export class ParallaxDirective {
     this.initialLeft = this.ref.nativeElement.getBoundingClientRect().left;
   }
 
+  // Listener on mouse scroll
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     this.ref.nativeElement.style.top = (this.initialTop - (window.scrollY * this.ratioY)) + 'px';

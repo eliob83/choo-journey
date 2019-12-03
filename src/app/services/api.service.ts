@@ -17,8 +17,8 @@ export class ApiService {
     })
   };
 
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   // API call function
   apiCall(url: string): Observable<any> {

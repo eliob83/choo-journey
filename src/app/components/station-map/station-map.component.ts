@@ -19,7 +19,8 @@ export class StationMapComponent implements OnInit {
   icons: Icon[][] = new Array<Array<Icon>>();
 
 
-  constructor(private stationsService: StationService) { }
+  constructor(private stationsService: StationService) {
+  }
 
   ngOnInit() {
     // Map declaration with France-centered coords and zoom
@@ -71,7 +72,7 @@ export class StationMapComponent implements OnInit {
           [station.lat, station.lon],
           // Random station type icon
           {icon: this.icons[station.getMainType()][Math.floor(Math.random() * this.icons[station.getMainType()].length)]}
-          ).bindPopup(station.label).addTo(this.stationsMap).on('click', e => {
+          ).bindPopup(station.label).addTo(this.stationsMap).on('click', () => {
             // Marker click push it on map observable
             this.stationsService.mapSubjects.next(station);
           })

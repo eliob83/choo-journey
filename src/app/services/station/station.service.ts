@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {ApiService} from '../api.service';
-
+// Classes
 import {Station} from '../../classes/Station';
 import {SearchOption} from '../../classes/Search';
 
@@ -24,10 +24,6 @@ export class StationService extends ApiService {
   // API search like stationName
   loadStationsLike(stationName: string, count: number): Observable<any> {
     return this.apiCall(this.endpoint + 'coverage/sncf/places?q=' + stationName + '&count=' + count + '&type%5B%5D=stop_area&depth=3');
-    /*.subscribe(
-      () => { console.log('Terminé !'); },
-      (error) => { console.error('Erreur httpClient : ' + error); }
-    );*/
   }
 
   // Subscribing data to option-related Observer
@@ -62,6 +58,6 @@ export class StationService extends ApiService {
   // Stations list search
   searchStation(stationName: string, count: number, opt: SearchOption): void {
     this.loadStationsLike(stationName, count)
-        .subscribe((data: {}) => this.subscribeData(data, opt));
+      .subscribe((data: {}) => this.subscribeData(data, opt));
   }
 }

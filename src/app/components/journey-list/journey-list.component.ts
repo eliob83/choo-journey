@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import { JourneyService } from 'src/app/services/journey/journey.service';
-import { Journey } from 'src/app/classes/Journey';
+import {Component} from '@angular/core';
+import {JourneyService} from 'src/app/services/journey/journey.service';
+import {Journey} from 'src/app/classes/Journey';
 
 @Component({
   selector: 'app-journey-list',

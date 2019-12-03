@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 
 import {Journey} from 'src/app/classes/Journey';
 
-import {faTrain, faBus, faSubway} from '@fortawesome/free-solid-svg-icons';
+import {faBus, faSubway, faTrain} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -19,6 +19,7 @@ export class JourneyComponent {
   @Input() journey: Journey;
 
 
-  constructor() { }
+  constructor() {
+  }
 
 }
