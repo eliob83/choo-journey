@@ -14,18 +14,34 @@
   </div>
 
   <div class="row mt-4">
-    <!-- Journey search component -->
-    <app-journey-list class="col-5"></app-journey-list>
-    
     <!-- Journey form component -->
-    <app-journey-form class="col-7"></app-journey-form>
+    <app-journey-form class=" offset-5 col-7"></app-journey-form>
+    <!-- Journey search component -->
+    <app-journey-list class="offset-5"></app-journey-list>
   </div>
 </div>
 
 <!-- Parallax -->
-<div appParallax [ratioY]="1.5" id="railWay">
-   <img src="../assets/background/railway_horizontal.png" alt="Horizontal railway" id="railWayImg">
+<!-- Front train -->
+<div appParallax [ratioY]="2.2" id="railWayFront">
+  <img src="../assets/background/railway_horizontal.png" alt="Horizontal railway" id="railWayFrontImg">
 </div>
-<div appParallax [ratioX]="2.5" [ratioY]="1.5" id="locomotive">
-  <img src="../assets/background/locomotive.png" alt="Locomotive" id="locomotiveImg">
+<div appParallax [ratioX]="-2.5" [ratioY]="2.2" id="locomotive_front">
+  <img src="../assets/background/locomotive_left.png" alt="Locomotive front" id="locomotive_frontImg">
+</div>
+
+<!-- Back train right -->
+<div appParallax [ratioY]="1.2" id="railWayBack1">
+  <img src="../assets/background/railway_horizontal.png" alt="Horizontal railway" id="railWayBack1Img">
+</div>
+<div appParallax [ratioX]="2.5" [ratioY]="1.2" id="locomotive_back_right">
+  <img src="../assets/background/locomotive_right.png" alt="Locomotive back 1" id="locomotive_back_rightImg">
+</div>
+
+<!-- Back train left -->
+<div appParallax [ratioY]="1.2" id="railWayBack2">
+  <img src="../assets/background/railway_horizontal.png" alt="Horizontal railway" id="railWayBack2Img">
+</div>
+<div appParallax [ratioX]="2.25" [ratioY]="2.3" id="locomotive_back_left">
+  <img src="../assets/background/locomotive_right.png" alt="Locomotive back 2" id="locomotive_back_leftImg">
 </div>
