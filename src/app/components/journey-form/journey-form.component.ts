@@ -58,8 +58,8 @@ export class JourneyFormComponent implements OnInit {
   constructor(private stationService: StationService, private journeyService: JourneyService) {
     // Journeys update observable
     journeyService.journeySubjects.subscribe(data => {
-      this.journeys = data;
       this.currentState = SearchState.COMPLETED;
+      this.journeys = data;
     });
   }
 

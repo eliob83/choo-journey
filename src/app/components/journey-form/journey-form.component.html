@@ -62,12 +62,14 @@
 
   <div class="text-center">
     <!-- SUBMIT input -->
-    <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
+    <button type="submit" class="mr-2 btn btn-outline-info btn-lg">
+      <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
 
-    <ng-container *ngIf="currentState==SearchState.LOADING">
-      <span class="mb-1 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      <span class="ml-2">Recherche...</span>
-    </ng-container>
+      <ng-container *ngIf="currentState==SearchState.LOADING">
+        <span class="mb-1 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="ml-2">Recherche...</span>
+      </ng-container>
+    </button>
 
     <!-- Button that displays the modal -->
     <button type="button" class="ml-2 btn btn-outline-info btn-lg" (click)="helpModal.show()">Aide</button>
