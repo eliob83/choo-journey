@@ -1,3 +1,4 @@
+<br>
 <h2 class="text-center mb-4">Chercher un itinéraire</h2>
 
 <form action="#" autocomplete="off" (ngSubmit)="submitJourney()">
@@ -18,6 +19,16 @@
              typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
              pattern="[A-Z|a-z]"
              required/>
+    </div>
+
+    <!-- DATE input -->
+    <div class="form-group col-4">
+      <label for="dateTimeJourney"><small>Date du voyage <b>*</b></small></label>
+      <input type="text" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
+             [placeholder]="placeholderDate"
+             [(ngModel)]="dateJourney" bsDatepicker [bsValue]="today" [minDate]="today"
+             [bsConfig]="{dateInputFormat: 'YYYY-MM-DD', isAnimated: true, adaptivePosition: true, containerClass: 'theme-blue'}"
+             required>
     </div>
   </div>
 
