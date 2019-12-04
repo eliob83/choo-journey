@@ -13,6 +13,8 @@ export class JourneyService extends ApiService {
   // Journey results observable
   public journeySubjects = new BehaviorSubject<JourneyList>(null);
 
+  public journeyFromList = new BehaviorSubject<any>({ endpoint: undefined, station: undefined });
+
 
   // API search like Journey
   loadJourneys(startStationId: string, endStationId: string, schedule: string, count: number): Observable<any> {

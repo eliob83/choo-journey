@@ -16,6 +16,8 @@ import {
   IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
 
+import { JourneyService } from 'src/app/services/journey/journey.service';
+
 
 @Component({
   selector: 'app-station',
@@ -46,7 +48,7 @@ export class StationComponent {
   stationIcon: IconDefinition;
 
 
-  constructor(private stationService: StationService) {
+  constructor(private stationService: StationService, private journeyService: JourneyService) {
   }
 
   // Focus pinpoint on map
@@ -56,7 +58,11 @@ export class StationComponent {
 
   // Set Station as journey origin
   startJourney() {
-    // this.stationService.startEvent(this.station);
+    this.journeyService.journeyFromList.next({endpoint: 'from', station: this.station});
+  }
+
+  endJourney() {
+    this.journeyService.journeyFromList.next({endpoint: 'to', station: this.station});
   }
 
   // Open detail panel animation
