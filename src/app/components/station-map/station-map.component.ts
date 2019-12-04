@@ -19,8 +19,7 @@ export class StationMapComponent implements OnInit {
   icons: Icon[][] = new Array<Array<Icon>>();
 
 
-  constructor(private stationsService: StationService) {
-  }
+  constructor(private stationsService: StationService) { }
 
   ngOnInit() {
     // Map declaration with France-centered coords and zoom
@@ -65,7 +64,6 @@ export class StationMapComponent implements OnInit {
 
     // For each station of the list
     data.forEach(station => {
-      console.log(station);
       // Non-zero coords (unknown)
       if (station.lat !== 0 || station.lon !== 0) {
         this.markers.push(L.marker(

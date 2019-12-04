@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {ApiService} from '../api.service';
-// Classes
-import {Journey, JourneyList} from '../../classes/Journey';
+
+import {JourneyList} from '../../classes/Journey';
 
 
 @Injectable({
@@ -12,7 +12,7 @@ import {Journey, JourneyList} from '../../classes/Journey';
 export class JourneyService extends ApiService {
   // Journey results observable
   public journeySubjects = new BehaviorSubject<JourneyList>(null);
-
+  // Actions from the list (start or end the journey)
   public journeyFromList = new BehaviorSubject<any>({ endpoint: undefined, station: undefined });
 
 

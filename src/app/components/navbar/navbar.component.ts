@@ -15,8 +15,7 @@ export class NavbarComponent {
 
   dog = '';
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) { }
 
   // Search a random dog image
   setDog() {

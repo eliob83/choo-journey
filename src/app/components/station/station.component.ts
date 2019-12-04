@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 import {StationService} from 'src/app/services/station/station.service';
+import {JourneyService} from 'src/app/services/journey/journey.service';
 
 import {Station, StationType} from '../../classes/Station';
 
@@ -16,7 +17,6 @@ import {
   IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
 
-import { JourneyService } from 'src/app/services/journey/journey.service';
 
 
 @Component({
@@ -48,8 +48,7 @@ export class StationComponent {
   stationIcon: IconDefinition;
 
 
-  constructor(private stationService: StationService, private journeyService: JourneyService) {
-  }
+  constructor(private stationService: StationService, private journeyService: JourneyService) { }
 
   // Focus pinpoint on map
   seeOnMap() {
@@ -73,7 +72,5 @@ export class StationComponent {
     } else {
       this.openEvent.emit(this.station);
     }
-
-    console.log(this.station.getIconMainType());
   }
 }

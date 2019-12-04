@@ -16,8 +16,8 @@ import {TypeaheadMatch} from 'ngx-bootstrap';
   styleUrls: ['./journey-form.component.css']
 })
 export class JourneyFormComponent implements OnInit {
-  // Options for the observables
-  searchOption = SearchOption;
+  // References
+  SearchOption = SearchOption;
 
   // Tab where keys are stored. The request will not be sent if one of those keys is pressed.
   private readonly keyExceptions: string[] = [' ', 'Shift', 'Control', 'Alt',
@@ -87,7 +87,7 @@ export class JourneyFormComponent implements OnInit {
   checkKey(event): boolean {
     this.keyExceptions.forEach(k => {
       if (event.key === k) {
-        console.log('Handled');
+        // console.log('Handled');
         return true;
       }
     });
@@ -103,7 +103,6 @@ export class JourneyFormComponent implements OnInit {
       this.idWait = setTimeout(() => {
         this.stationService.searchStation(str, 20, opt);
       }, 400);
-      console.log(this.stationFrom);
     }
   }
 
@@ -112,8 +111,6 @@ export class JourneyFormComponent implements OnInit {
     if (this.checkKey(event) === true) { // If not a normal character
       return;
     } else {
-      console.log('Annulation du timeout ' + this.idWait);
-      console.log(this.stationFrom.id);
       clearTimeout(this.idWait);
     }
   }
@@ -131,11 +128,9 @@ export class JourneyFormComponent implements OnInit {
 
   // Calls service to search journeys
   submitJourney(): void {
-    console.log('oups');
     if (this.stationFrom !== undefined && this.stationTo !== undefined && this.dateJourney !== undefined) {
-      console.log('yessai');
       this.currentState = SearchState.LOADING;
-      this.journeyService.searchJourney(this.stationFrom.id, this.stationTo.id, (new JourneyDate(this.dateJourney.toJSON())).getYMD(), 10);
+      this.journeyService.searchJourney(this.stationFrom.id, this.stationTo.id, (new JourneyDate(this.dateJourney.toJSON())).getYMD(), 3);
     }
   }
 

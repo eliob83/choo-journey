@@ -1,5 +1,4 @@
-<br>
-<h2 class="text-center mb-4 text-light">Chercher un itinéraire</h2>
+<h2 class="text-center mb-4 text-light font-weight-bold">Chercher un itinéraire</h2>
 
 <form action="#" autocomplete="off" (ngSubmit)="submitJourney()">
   <div class="form-row">
@@ -11,11 +10,11 @@
              [class.is-invalid]="noResultFrom"
              placeholder="Toulon" [(ngModel)]="stationFrom.name"
              (keydown)="stopSearchDelay($event)"
-             (keyup)="startSearchDelayed($event, stationFrom.name, searchOption.FROM_INPUT)"
+             (keyup)="startSearchDelayed($event, stationFrom.name, SearchOption.FROM_INPUT)"
              [typeahead]="stationService.fromSearchObservable" [typeaheadScrollable]="true"
              [typeaheadOptionsInScrollableView]="maxScroll"
              (typeaheadOnSelect)="getStationId($event, 'from')"
-             (typeaheadNoResults)="typeaheadNoResults($event, searchOption.FROM_INPUT)"
+             (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.FROM_INPUT)"
              typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
              pattern="[A-Z|a-z]"
              required/>
@@ -41,11 +40,11 @@
              [class.is-invalid]="noResultTo"
              placeholder="Seignosse" [(ngModel)]="stationTo.name"
              (keydown)="stopSearchDelay($event)"
-             (keyup)="startSearchDelayed($event, stationTo.name, searchOption.TO_INPUT)"
+             (keyup)="startSearchDelayed($event, stationTo.name, SearchOption.TO_INPUT)"
              [typeahead]="stationService.toSearchObservable" [typeaheadScrollable]="true"
              [typeaheadOptionsInScrollableView]="maxScroll"
              (typeaheadOnSelect)="getStationId($event, 'to')"
-             (typeaheadNoResults)="typeaheadNoResults($event, searchOption.TO_INPUT)"
+             (typeaheadNoResults)="typeaheadNoResults($event, SearchOption.TO_INPUT)"
              typeaheadOptionField="name" [typeaheadAsync]="true" [isAnimated]="true" [adaptivePosition]="true"
              ngModel pattern="[A-Za-z]*"
              required/>
@@ -66,23 +65,8 @@
       <button type="button" class="ml-3 btn btn-info btn-lg" (click)="helpModal.show()">Aide</button>
     </div>
   </div>
-
-
-  <div class="text-center">
-
-  </div>
 </form>
 
-<!-- Journey list -->
-<div>
-  <ul>
-    <li *ngFor="let journey of journeys">
-      {{ journey.from.name }} -> {{ journey.to.name }} @ {{ journey.dateTime }}
-      <br>
-      {{ journey.firstTransportation }} -> {{ journey.lastTransportation }}
-    </li>
-  </ul>
-</div>
 
 <!-- Help modal about the journey form -->
 <div class="modal fade" bsModal #helpModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="Help form"

@@ -1,5 +1,3 @@
-import { ThrowStmt } from '@angular/compiler';
-
 export enum StationType {
     UNDEFINED,
     AIR,
@@ -11,31 +9,18 @@ export enum StationType {
     FUNICULAR
 }
 
+
 export class Station {
-    id: string;
-    name: string;
-    label: string;
-
-    lat: number;
-    lon: number;
-
-    city: string;
-    zipCode: string;
-
-    code: string;
-    types: StationType[];
-
 
     constructor(args: Array<any>) {
-        console.log('Station ?');
         if (args === null || args === undefined) {
             return;
         }
-        console.log('??');
+
+        // Allow use of stop_area and stop_point
         if (args[`stop_area`] === undefined) {
             args = args[`stop_point`];
         }
-        console.log(args);
 
         this.id = args[`id`];
         this.name = args[`name`];
@@ -57,12 +42,26 @@ export class Station {
             args[`stop_area`][`physical_modes`].forEach(element => {
                 const type = Station.getTypeFromString(element.id);
 
+                // If not included yet
                 if (!this.types.includes(type)) {
                     this.types.push(type);
                 }
             });
         }
     }
+
+    id: string;
+    name: string;
+    label: string;
+
+    lat: number;
+    lon: number;
+
+    city: string;
+    zipCode: string;
+
+    code: string;
+    types: StationType[];
 
     static getTypeFromString(str: string) {
         switch (str.split(':')[1]) {
@@ -102,6 +101,7 @@ export class Station {
         }
     }
 
+
     // Browse each args given and test them one after the other to access wanted value
     setParamFromArray(arr: Array<any>, args: Array<any>): string {
         let cur = arr;
@@ -117,6 +117,7 @@ export class Station {
         return cur.toString();
     }
 
+    // Return main type depending on priority
     getMainType() {
         if (this.types.includes(StationType.TRAIN)) {
             return StationType.TRAIN;
@@ -129,23 +130,8 @@ export class Station {
         return (this.types.length > 0 ? this.types[0] : StationType.UNDEFINED);
     }
 
+    // Return fontawesome variable name
     getIconMainType() {
         return 'fa' + this.getMainType().toString();
     }
-/*
-    // Set Station type depending on stop_area code
-    setType(code: string) {
-        switch (code.slice(-2)) {
-            case 'BV':
-                this.type = StationType.TRAIN_STATION;
-                break;
-
-            case 'HR':
-                this.type = StationType.BUS_STATION;
-                break;
-
-            default:
-                this.type = StationType.UNDEFINED;
-        }
-    }*/
 }
