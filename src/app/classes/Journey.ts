@@ -20,7 +20,7 @@ export enum JourneyTransport {
 
 // Class for the date picker
 export class JourneyDate {
-  
+
   constructor(args: string) {
     const formated = JourneyDate.formatDate(args);
 
