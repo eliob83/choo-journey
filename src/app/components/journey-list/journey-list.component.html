@@ -1,5 +1,5 @@
-<div class="row row-cols-1 row-cols-md-2">
-  <div class="col mb-4" *ngFor="let journey of journeys">
-    <app-journey [journey]="journey"></app-journey>
+<div class="row">
+  <div class="col-12 mt-3" *ngFor="let journey of journeys; let i = index">
+    <app-journey [journey]="journey" [index]="i"></app-journey>
   </div>
 </div>

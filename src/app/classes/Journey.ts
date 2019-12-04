@@ -10,6 +10,10 @@ export enum JourneyStatus {
   MODIFIED_SERVICE, OTHER_EFFECT, UNKNOWN_EFFECT, STOP_MOVED
 }
 
+export enum JourneyTransport {
+  UNDEFINED, WALKING, TRAIN, BUS
+}
+
 // Class for the date picker
 export class JourneyDate {
 
@@ -78,24 +82,86 @@ export class JourneyDate {
     return this.hour + ':' + this.minute + ':' + this.second;
   }
 
+  getShortTime() {
+    return this.hour + 'h' + this.minute;
+  }
+
   // Stringify
   toString() {
     return this.getYMD() + ' ' + this.getTime();
+  }
+
+  getText() {
+    return this.getYMD() + ' à ' + this.getTime();
+  }
+
+  toDate() {
+    return this.getYMD() + 'T' + this.getTime();
   }
 }
 
 export class JourneySection {
   from: Station;
   to: Station;
+
+  departureDateTime: JourneyDate;
+  arrivalDateTime: JourneyDate;
+
+  headsign: string;
+  name: string;
+  commercialMode: string;
+  direction: string;
+
+  duration: number;
+  status: string;
+
+  constructor(args: Array<any>) {
+    this.from = new Station(args[`from`]);
+    this.to = new Station(args[`to`]);
+
+    this.departureDateTime = new JourneyDate(args[`departure_date_time`]);
+    this.arrivalDateTime = new JourneyDate(args[`arrival_date_time`]);
+
+    if (args[`display_informations`] !== undefined) {
+      this.headsign = args[`display_informations`][`headsign`];
+      this.name = args[`display_informations`][`name`];
+      this.commercialMode = args[`display_informations`][`commercial_mode`];
+      this.direction = args[`display_informations`][`direction`];
+    }
+
+    this.duration = args[`duration`];
+    this.status = args[`type`];
+    if (this.status === 'transfer') {
+      this.status = args[`transfer_type`];
+    }
+  }
 }
 
 // Main class journey
 export class Journey {
-  duration: number;
-  nbTransfers: number;
 
-  departureDateTime: JourneyDate;
-  arrivalDateTime: JourneyDate;
+
+  constructor(args: Array<any>) {
+    console.log(args);
+    
+    this.duration = args[`duration`];
+    this.walkingDuration = args[`durations`][`walking`];
+    this.nbTransfers = args[`nb_transfers`];
+
+    this.setSectionsFromArray(args[`sections`]);
+
+    this.from = new Station(args[`from`]);
+    this.to = new Station(args[`to`]);
+
+    this.co2 = args[`co2_emission`][`value`];
+    this.fare = (args[`fare`][`found`] ? args[`fare`][`total`] : -1);
+
+    this.type = args[`type`];
+    this.status = args[`status`];
+  }
+  duration: number;
+  walkingDuration: number;
+  nbTransfers: number;
 
   sections: JourneySection[];
 
@@ -108,26 +174,28 @@ export class Journey {
   type: JourneyType;
   status: JourneyStatus;
 
+  static areStationsEqual(from: Array<any>, to: Array<any>) {
+    if (from === undefined || to === undefined) {
+      return false;
+    }
 
-  constructor(args: Array<any>) {
-    console.log(args);
-    this.duration = args[`duration`];
-    this.nbTransfers = args[`nb_transfers`];
+    (['stop_point', 'stop_area', 'id']).forEach(str => {
+      if (from[str] === undefined || to[str] === undefined) {
+        return false;
+      }
+      from = from[str];
+      to = to[str];
+    });
 
-    this.departureDateTime = new JourneyDate(args[`departure_date_time`]);
-    this.arrivalDateTime = new JourneyDate(args[`arrival_date_time`]);
+    return (from === to);
+  }
 
-    this.setSectionsFromArray(args[`sections`]);
+  getDepartureDateTime() {
+    return (this.sections.length > 0) ? this.sections[0].departureDateTime : undefined;
+  }
 
-    this.from = new Station(args[`from`]);
-    this.to = new Station(args[`to`]);
-
-    this.co2 = args[`co2_emission`][`value`];
-    this.fare = (args[`fare`][`found`] ? args[`fare`][`total`] : -1);
-
-    this.type = args[`type`];
-    this.status = args[`status`];
-    console.log(this);
+  getArrivalDateTime() {
+    return (this.sections.length > 0) ? this.sections[this.sections.length - 1].arrivalDateTime : undefined;
   }
 
   setSectionsFromArray(args: Array<any>) {
@@ -143,11 +211,13 @@ export class Journey {
           return;
         }
       }*/
-      if (data[`duration`] === 0) {
+      console.log('>>>\n');
+      console.log(data);
+      if (data[`duration`] === 0 || Journey.areStationsEqual(data[`from`], data[`to`])) {
         return;
       }
 
-      this.sections.push(new JourneySection());
+      this.sections.push(new JourneySection(data));
     });
   }
 }

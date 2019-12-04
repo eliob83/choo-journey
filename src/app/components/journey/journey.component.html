@@ -3,20 +3,50 @@
 
   <div [class.border-success]="journey.type === JourneyType.ECOLOGICAL"
        [class.border-primary]="journey.type === JourneyType.FASTER" class="card-header bg-transparent">
-    <fa-icon [icon]="faTrain"></fa-icon>
-    <fa-icon [icon]="faBus"></fa-icon>
-    <fa-icon [icon]="faSubway"></fa-icon>
+    <small>#{{ index }}</small> Durée : {{ 1000 * journey.duration | date:'H':'UTC' }}h{{ 1000 * journey.duration | date:'mm':'UTC' }} (dont {{ 1000 * journey.walkingDuration | date:'H:mm':'UTC' }} à pieds)
+    <span class="float-right">Transferts : {{ journey.nbTransfers }}</span>
   </div>
 
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">
+        
+    </h5>
 
-    <p class="card-text">
-      This is the text yes.
-    </p>
+    <div class="card-text">
+      <div class="mb-3" *ngFor="let section of journey.sections; let i=index">
+        <h5>Étape #{{ i+1 }}</h5>
+
+        <ng-container [ngSwitch]="section.status">
+          <ng-container *ngSwitchCase="'waiting'">
+            <i>Attente de {{ 1000 * section.duration | date:'H:mm':'UTC' }}</i>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'walking'">
+              Départ de <b>{{ section.from.label }}</b> à <i>{{ section.departureDateTime.getShortTime() }} ({{ section.departureDateTime.getYMD() }})</i><br />
+              Durée du trajet à pieds : {{ 1000 * section.duration | date:'H:mm':'UTC' }}<br />
+              Arrivée à <b>{{ section.to.label }}</b> à <i>{{ section.arrivalDateTime.getShortTime() }} ({{ section.arrivalDateTime.getYMD() }})</i>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            Départ de <b>{{ section.from.label }}</b> à <i>{{ section.departureDateTime.getShortTime() }} ({{ section.departureDateTime.getYMD() }})</i><br />
+            {{ section.headsign }} - {{ section.name }} ({{ section.commercialMode }}), direction <i>{{ section.direction }}</i><br />
+            Durée du trajet : {{ 1000 * section.duration | date:'H:mm':'UTC' }}<br />
+            Arrivée à <b>{{ section.to.label }}</b> à <i>{{ section.arrivalDateTime.getShortTime() }} ({{ section.arrivalDateTime.getYMD() }})</i>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
   </div>
 
   <div [class.border-success]="journey.type === JourneyType.ECOLOGICAL"
-       [class.border-primary]="journey.type === JourneyType.FASTER" class="card-footer bg-transparent">Footer
+       [class.border-primary]="journey.type === JourneyType.FASTER" class="card-footer bg-transparent">
+       <ng-container [ngSwitch]="journey.fare">
+          <!-- Undefined fare -->
+          <ng-container *ngSwitchCase="-1"><i>Prix inconnu</i></ng-container>
+
+          <ng-container *ngSwitchDefault>Prix : {{ journey.fare }} €</ng-container>
+        </ng-container>
+
+       <span class="float-right">CO² : {{ journey.co2 | number : '1.2-2' }} gEC</span>
   </div>
 </div>

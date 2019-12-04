@@ -53,7 +53,7 @@
 
     <div class="form-group align-self-end">
       <!-- SUBMIT input -->
-      <button type="submit" class="ml-2 btn btn-primary btn-lg">
+      <button type="submit" class="ml-2 mr-1 btn btn-primary btn-lg">
         <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
 
         <ng-container *ngIf="currentState==SearchState.LOADING">
@@ -63,7 +63,7 @@
       </button>
 
       <!-- Button that displays the modal -->
-      <button type="button" class="ml-5 btn btn-info btn-lg" (click)="helpModal.show()">Aide</button>
+      <button type="button" class="ml-3 btn btn-info btn-lg" (click)="helpModal.show()">Aide</button>
     </div>
   </div>
 

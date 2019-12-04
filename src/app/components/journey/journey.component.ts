@@ -17,6 +17,7 @@ export class JourneyComponent {
   faSubway = faSubway;
   JourneyType = JourneyType;
 
+  @Input() index: number;
   @Input() journey: Journey;
 
 
