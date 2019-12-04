@@ -123,7 +123,7 @@ export class Station {
             return StationType.METRO;
         }
 
-        return this.types[0];
+        return (this.types.length > 0 ? this.types[0] : StationType.UNDEFINED);
     }
 
     getIconMainType() {

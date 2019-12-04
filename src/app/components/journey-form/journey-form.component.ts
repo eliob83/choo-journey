@@ -65,6 +65,16 @@ export class JourneyFormComponent implements OnInit {
         this.journeys = new Array<Journey>();
       }
     });
+
+    journeyService.journeyFromList.subscribe(data => {
+      if (data[`endpoint`] !== undefined && data[`station`] !== undefined) {
+        if (data[`endpoint`] === 'from') {
+          this.stationFrom = data[`station`];
+        } else if (data[`endpoint`] === 'to') {
+          this.stationTo = data[`station`];
+        }
+      }
+    });
   }
 
   ngOnInit() {

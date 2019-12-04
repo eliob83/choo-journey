@@ -46,7 +46,7 @@
       </ng-container>
 
       <!-- Submit button (start search)-->
-      <button (click)="openStation()" class="btn btn-lg btn-outline-primary offset-1" type="button" data-toggle="collapse"
+      <button (click)="openStation()" class="btn offset-1 text-nowrap btn-nofocus" type="button" data-toggle="collapse"
               [attr.data-target]="'#collapse' + station.code" aria-expanded="false"
               [attr.aria-controls]="'collapse' + index">
         {{ station.name }}
@@ -68,7 +68,10 @@
         <button *ngIf="station.lon !== 0 || station.lat !== 0" (click)="seeOnMap()" type="button"
                 class="btn btn-secondary mr-2">Voir sur la carte
         </button>
+
         <button (click)="startJourney()" type="button" class="btn btn-info">Commencer un trajet</button>
+
+        <button (click)="endJourney()" type="button" class="btn btn-error">Terminer un trajet</button>
       </div>
     </div>
   </div>
