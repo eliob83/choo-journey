@@ -15,6 +15,7 @@ It will be a one page web site, using the SNCF API (more information below).
 
 #### Results
 - Train station list (up to 5)
+- Buttons to assign to a journey
 
 #### Information tab
 - Details about departures and arrivals
