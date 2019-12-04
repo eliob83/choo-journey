@@ -85,7 +85,8 @@ export class JourneyDate {
 }
 
 export class JourneySection {
-
+  from: Station;
+  to: Station;
 }
 
 // Main class journey
@@ -109,6 +110,7 @@ export class Journey {
 
 
   constructor(args: Array<any>) {
+    console.log(args);
     this.duration = args[`duration`];
     this.nbTransfers = args[`nb_transfers`];
 

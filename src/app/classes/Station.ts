@@ -27,8 +27,13 @@ export class Station {
 
 
     constructor(args: Array<any>) {
+        console.log('Station ?');
         if (args === null || args === undefined) {
             return;
+        }
+        console.log('??');
+        if (args[`stop_area`] === undefined) {
+            args = args[`stop_point`];
         }
         console.log(args);
 
