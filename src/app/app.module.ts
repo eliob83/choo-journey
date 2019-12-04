@@ -20,8 +20,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {BsDatepickerModule, TimepickerModule, TypeaheadModule} from 'ngx-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-// Directive
-import {ParallaxDirective} from './directives/parallax.directive';
 
 
 @NgModule({
@@ -33,8 +31,7 @@ import {ParallaxDirective} from './directives/parallax.directive';
     JourneyFormComponent,
     NavbarComponent,
     JourneyComponent,
-    JourneyListComponent,
-    ParallaxDirective
+    JourneyListComponent
   ],
   imports: [
     BrowserModule,
