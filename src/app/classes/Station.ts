@@ -43,6 +43,9 @@ export class Station {
 
         this.city = this.setParamFromArray(args, [`stop_area`, `administrative_regions`, 0, `name`]);
         this.zipCode = this.setParamFromArray(args, [`stop_area`, `administrative_regions`, 0, `zip_code`]);
+        if (this.zipCode === undefined || this.zipCode === '') {
+            this.zipCode = '00000';
+        }
 
         this.lat = +args[`stop_area`][`coord`][`lat`];
         this.lon = +args[`stop_area`][`coord`][`lon`];

@@ -62,11 +62,53 @@
   <div [id]="'collapse' + station.code" class="collapse" [attr.aria-labelledby]="'heading' + station.code"
        data-parent="#stationAccordion">
     <div class="card-body">
-      Station : {{ station.label }}<br/>
-      <span *ngIf="station.city !== undefined">{{ station.city }} - </span><span *ngIf="station.zipCode !== undefined">{{ station.zipCode }}</span>
+      <span class="h5">{{ station.label }}</span>
+      <span class="float-right font-italic"><span *ngIf="station.city !== undefined">{{ station.city }} - </span><span *ngIf="station.zipCode !== undefined">{{ station.zipCode }}</span></span>
 
       
-      <br>
+      <br />
+      Services :
+      <span *ngFor="let type of station.types" class="mr-1">
+        <!-- Correct icon display -->
+        <ng-container [ngSwitch]="type">
+          <!-- Air -->
+          <ng-container *ngSwitchCase="StationType.AIR">
+            Avion
+          </ng-container>
+
+          <!-- Boat -->
+          <ng-container *ngSwitchCase="StationType.BOAT">
+            Bateau
+          </ng-container>
+
+          <!-- Bus -->
+          <ng-container *ngSwitchCase="StationType.BUS">
+            Bus
+          </ng-container>
+
+          <!-- Train -->
+          <ng-container *ngSwitchCase="StationType.TRAIN">
+            Train
+          </ng-container>
+
+          <!-- Metro -->
+          <ng-container *ngSwitchCase="StationType.METRO">
+            Métro
+          </ng-container>
+
+          <!-- Taxi -->
+          <ng-container *ngSwitchCase="StationType.TAXI">
+            Taxi
+          </ng-container>
+
+          <!-- Funicular -->
+          <ng-container *ngSwitchCase="StationType.FUNICULAR">
+            Funiculaire
+          </ng-container>
+        </ng-container>
+      </span>
+
+      <br />
 
       <!-- Button options for each result -->
       <div class="mt-3" role="group" aria-label="Station actions">
