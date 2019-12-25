@@ -33,6 +33,17 @@ It will be a one page web site, using the SNCF API (more information below).
 
 ## Technical features
 
+### Components
+We used many components dedicate each part of our project correctly.<br>
+Here is the list of our components :<br>
+- journey : a single journey result
+- journey-form : the form for our journey search feature
+- journey-list : the results of our search
+- station : a single station result
+- station-list : the results of our search
+- station-map : the dynamic map
+- navbar : a component used for presentation and style in our project 
+
 ### Classes
 - __Station :__ Class mainly used for search
     - Filled with API requests (search + form fields)
