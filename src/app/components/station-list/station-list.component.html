@@ -1,4 +1,4 @@
-<h2 class="text-center mb-4">Liste des stations</h2>
+<h2 class="text-center mb-4 text-light">Liste des stations</h2>
 
 <form action="#" class="mx-auto row align-items-start" (ngSubmit)="searchStations()">
   <div class="form-group col-12 left mx-auto">
@@ -10,7 +10,7 @@
       <input class="form-control form-control-lg" [(ngModel)]="stationName" name="stationName" id="stationName" placeholder="Marseille" />
 
       <div class="input-group-append">
-        <button class="btn btn-outline-primary" type="submit">
+        <button class="btn btn-primary" type="submit">
           <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
 
           <ng-container *ngIf="currentState==SearchState.LOADING">

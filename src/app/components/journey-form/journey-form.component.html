@@ -1,9 +1,9 @@
 <br>
-<h2 class="text-center mb-4">Chercher un itinéraire</h2>
+<h2 class="text-center mb-4 text-light">Chercher un itinéraire</h2>
 
 <form action="#" autocomplete="off" (ngSubmit)="submitJourney()">
   <div class="form-row">
-    <div class="form-group offset-1 col-6">
+    <div class="form-group offset-1 col-7 text-light">
       <label for="fromJourney"><small>Mise en train <b>*</b></small></label>
       <!-- FROM input -->
       <input type="search" name="fromJourney" id="fromJourney"
@@ -22,7 +22,7 @@
     </div>
 
     <!-- DATE input -->
-    <div class="form-group col-4">
+    <div class="form-group col-3 text-light">
       <label for="dateTimeJourney"><small>Date du voyage <b>*</b></small></label>
       <input type="text" class="form-control form-control-lg" name="dateTimeJourney" id="dateTimeJourney"
              [placeholder]="placeholderDate"
@@ -34,7 +34,7 @@
 
   <!-- TO input -->
   <div class="form-row">
-    <div class="form-group offset-1 col-6">
+    <div class="form-group offset-1 col-7 text-light">
       <label for="toJourney"><small>Destination <b>*</b></small></label>
       <input type="search" name="toJourney" id="toJourney"
              class="form-control form-control-lg"
@@ -51,28 +51,25 @@
              required/>
     </div>
 
-    <!-- TIME input -->
-    <div class="form-group col-4">
-      <label for="timeJourney"><small>Heure du voyage</small></label>
-      <timepicker id="timeJourney" [showMeridian]="false" [showSpinners]="false" [showSeconds]="true">
-      </timepicker>
+    <div class="form-group align-self-end">
+      <!-- SUBMIT input -->
+      <button type="submit" class="ml-2 btn btn-primary btn-lg">
+        <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
+
+        <ng-container *ngIf="currentState==SearchState.LOADING">
+          <span class="mb-1 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span class="ml-2">Recherche...</span>
+        </ng-container>
+      </button>
+
+      <!-- Button that displays the modal -->
+      <button type="button" class="ml-5 btn btn-info btn-lg" (click)="helpModal.show()">Aide</button>
     </div>
   </div>
 
 
   <div class="text-center">
-    <!-- SUBMIT input -->
-    <button type="submit" class="mr-2 btn btn-outline-info btn-lg">
-      <ng-container *ngIf="currentState!=SearchState.LOADING">Rechercher</ng-container>
 
-      <ng-container *ngIf="currentState==SearchState.LOADING">
-        <span class="mb-1 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        <span class="ml-2">Recherche...</span>
-      </ng-container>
-    </button>
-
-    <!-- Button that displays the modal -->
-    <button type="button" class="ml-2 btn btn-outline-info btn-lg" (click)="helpModal.show()">Aide</button>
   </div>
 </form>
 
