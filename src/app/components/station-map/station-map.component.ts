@@ -30,7 +30,7 @@ export class StationMapComponent implements OnInit {
     // Icons load
     this.icons[0] = new Array<Icon>();
     this.icons[0][0] = L.icon({iconUrl: '../assets/map/interrogation.png', iconSize: [50, 50], iconAnchor: [25, 25]});
-    for (let t = StationType.TRAIN; t <= StationType.FUNICULAR; t++) {
+    for (let t = StationType.AIR; t <= StationType.FUNICULAR; t++) {
       this.icons[t] = new Array<Icon>();
 
       for (let i = 0; i < 9; i++) {
